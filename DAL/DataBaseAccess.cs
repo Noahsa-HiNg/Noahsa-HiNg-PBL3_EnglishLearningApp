@@ -17,6 +17,7 @@ namespace DAL
             {
                 SqlConnection sqlCon = new SqlConnection(strCon);
                 //concac
+                // knjknjdkvsvava
             }
         }
     }
