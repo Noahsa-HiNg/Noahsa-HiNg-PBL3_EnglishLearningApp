@@ -6,28 +6,24 @@ using System.Threading.Tasks;
 
 namespace DTO
 {
-    public class Test
+    public class CourseCategory
     {
-        public int Test_ID { get; set; }
         public int Category_ID { get; set; }
-        public string Title { get; set; }
+        public string Name { get; set; }
         public string Description { get; set; }
-        public int Time_Limit { get; set; }
-        public int Question_Count { get; set; }
+        public decimal Price { get; set; }
         public int Created_By { get; set; }
         public DateTime Created_Date { get; set; }
         public DateTime Updated_Date { get; set; }
 
-        public Test() { }
+        public CourseCategory() { }
 
-        public Test(int testId, int categoryId, string title, string description, int timeLimit, int questionCount, int createdBy, DateTime createdDate, DateTime updatedDate)
+        public CourseCategory(int categoryId, string name, string description, decimal price, int createdBy, DateTime createdDate, DateTime updatedDate)
         {
-            Test_ID = testId;
             Category_ID = categoryId;
-            Title = title;
+            Name = name;
             Description = description;
-            Time_Limit = timeLimit;
-            Question_Count = questionCount;
+            Price = price;
             Created_By = createdBy;
             Created_Date = createdDate;
             Updated_Date = updatedDate;

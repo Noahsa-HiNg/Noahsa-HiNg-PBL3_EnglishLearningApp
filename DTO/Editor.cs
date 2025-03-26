@@ -7,14 +7,21 @@ using System.Threading.Tasks;
 
 namespace DTO
 {
-    class Editor : Person
+    public class Editor : Person
     {
-        public string Status;
+        public string Permissions { get; set; }
+        public string Status { get; set; }
+        public DateTime Created_Date { get; set; }
+        public DateTime Updated_Date { get; set; }
         public Editor() { }
-        public Editor(string id, string name, string phone, string gmail, string address, string accountId, string status)
-        : base(id, name, phone, gmail, address, accountId)
+
+        public Editor(int id, int accountId, string name, string phone, string email, string permissions, string status, DateTime createdDate, DateTime updatedDate)
+            : base(id, accountId, name, phone, email)
         {
+            Permissions = permissions;
             Status = status;
+            Created_Date = createdDate;
+            Updated_Date = updatedDate;
         }
     }
 }

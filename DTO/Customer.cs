@@ -9,11 +9,21 @@ using System.Xml.Linq;
 
 namespace DTO
 {
-    class Customer : Person
+    public class Customer : Person
     {
-        public string Status;
+        public bool Notification_Enable { get; set; }
+        public DateTime Created_Date { get; set; }
+        public DateTime Updated_Date { get; set; }
+
         public Customer() { }
-        public Customer(string id, string name, string phone, string gmail, string address, string accountId)
-        : base(id, name, phone, gmail, address, accountId) { }
+
+        public Customer(int id, int accountId, string name, string phone, string email, bool notificationEnable, DateTime createdDate, DateTime updatedDate)
+            : base(id, accountId, name, phone, email)
+        {
+            Notification_Enable = notificationEnable;
+            Created_Date = createdDate;
+            Updated_Date = updatedDate;
+        }
     }
 }
+
