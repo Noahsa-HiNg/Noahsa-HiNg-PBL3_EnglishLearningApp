@@ -6,21 +6,27 @@ using System.Threading.Tasks;
 
 namespace DTO
 {
-    class Payment
+    public class Payment
     {
-        public int Lesson_ID { get; set; }
+        public int Payment_ID { get; set; }
+        public int Category_ID { get; set; }
         public int Customer_ID { get; set; }
-        public int Amount { get; set; }
-        public bool Status { get; set; }
+        public decimal Amount { get; set; }
+        public string Payment_Method { get; set; }
+        public string Status { get; set; }
+        public DateTime Timestamp { get; set; }
 
         public Payment() { }
 
-        public Payment(int lessonId, int customerId, int amount, bool status)
+        public Payment(int paymentId, int categoryId, int customerId, decimal amount, string paymentMethod, string status, DateTime timestamp)
         {
-            Lesson_ID = lessonId;
+            Payment_ID = paymentId;
+            Category_ID = categoryId;
             Customer_ID = customerId;
             Amount = amount;
+            Payment_Method = paymentMethod;
             Status = status;
+            Timestamp = timestamp;
         }
     }
 }

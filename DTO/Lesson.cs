@@ -6,23 +6,32 @@ using System.Threading.Tasks;
 
 namespace DTO
 {
-    class Lesson
+    public class Lesson
     {
-        public string ID { get; set; }
-        public string Title { get; set; }
-        public string Type { get; set; }
-        public int View { get; set; }
-        public string Status { get; set; }
+        public int Lesson_ID { get; set; }
+        public int Category_ID { get; set; }
+        public string Name { get; set; }
+        public string Description { get; set; }
+        public string Video_Url { get; set; }
+        public string Example { get; set; }
+        public int Created_By { get; set; }
+        public DateTime Created_Date { get; set; }
+        public DateTime Updated_Date { get; set; }
 
         public Lesson() { }
 
-        public Lesson(string id, string title, string type, int view, string status)
+        public Lesson(int lessonId, int categoryId, string name, string description, string videoUrl, string example, int createdBy, DateTime createdDate, DateTime updatedDate)
         {
-            ID = id;
-            Title = title;
-            Type = type;
-            View = view;
-            Status = status;
+            Lesson_ID = lessonId;
+            Category_ID = categoryId;
+            Name = name;
+            Description = description;
+            Video_Url = videoUrl;
+            Example = example;
+            Created_By = createdBy;
+            Created_Date = createdDate;
+            Updated_Date = updatedDate;
         }
     }
 }
+

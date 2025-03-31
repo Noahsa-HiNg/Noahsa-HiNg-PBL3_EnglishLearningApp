@@ -6,19 +6,20 @@ using System.Threading.Tasks;
 
 namespace DTO
 {
-    class LessonBuyer
+    public class FavoriteLesson
     {
-        public int Lesson_Buyer_ID { get; set; }
+        public int Favorite_ID { get; set; }
         public int Lesson_ID { get; set; }
         public int Customer_ID { get; set; }
 
-        public LessonBuyer() { }
+        public FavoriteLesson() { }
 
-        public LessonBuyer(int lessonBuyerId, int lessonId, int customerId)
+        public FavoriteLesson(int favoriteId, int lessonId, int customerId)
         {
-            Lesson_Buyer_ID = lessonBuyerId;
+            Favorite_ID = favoriteId;
             Lesson_ID = lessonId;
             Customer_ID = customerId;
         }
     }
 }
+

@@ -6,10 +6,13 @@ using System.Threading.Tasks;
 
 namespace DTO
 {
-    class Administrator : Person
+    public class Administrator : Person
     {
         public Administrator() { }
-        public Administrator(string id, string name, string phone, string gmail, string address, string accountId)
-        : base(id, name, phone, gmail, address, accountId) { }
+
+        public Administrator(int id, int accountId, string name, string phone, string email)
+            : base(id, accountId, name, phone, email)
+        {
+        }
     }
 }
