@@ -14,11 +14,11 @@ namespace DTO
         public decimal Amount { get; set; }
         public string Payment_Method { get; set; }
         public string Status { get; set; }
-        public DateTime Timestamp { get; set; }
+        public DateTime Processing_Date { get; set; }
 
         public Payment() { }
 
-        public Payment(int paymentId, int categoryId, int customerId, decimal amount, string paymentMethod, string status, DateTime timestamp)
+        public Payment(int paymentId, int categoryId, int customerId, decimal amount, string paymentMethod, string status, DateTime processing_date)
         {
             Payment_ID = paymentId;
             Category_ID = categoryId;
@@ -26,7 +26,7 @@ namespace DTO
             Amount = amount;
             Payment_Method = paymentMethod;
             Status = status;
-            Timestamp = timestamp;
+            Processing_Date = processing_date;
         }
     }
 }
