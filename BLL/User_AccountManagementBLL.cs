@@ -79,7 +79,7 @@ namespace BLL
             // Thêm Hàm Check Email ở DAL
             return CheckEmail;
         }
-        public string ChangePassWord(Account account,string NewPassWord)
+        public string ChangePassWord(Account account, string NewPassWord)
         {
             string Result = "";
             // Thêm hàm check có đúng mậth khẩu cũ không 
@@ -108,7 +108,7 @@ namespace BLL
             if (person.Phone.Length != 10)
             {
                 return "Must_10_Digits";
-            } 
+            }
             // Kiểm Tra k có space 
             if (string.IsNullOrWhiteSpace(person.Email))
                 return "Email_Required";
@@ -118,8 +118,20 @@ namespace BLL
 
             return "Valid";
         }
+        string ChangeInfor(Person person)
+        {
+            string Result = "";
+            if(CheckInfoAccount(person) == "Valid")
+            {
+                // Thêm hàm update vô database 
+                Result = "Success_ChangeInfor";
+            }
+            else
+            {
+                CheckInfoAccount(person);
+            }
+                return Result;
         }
     }
-        
-}
+    }
 
