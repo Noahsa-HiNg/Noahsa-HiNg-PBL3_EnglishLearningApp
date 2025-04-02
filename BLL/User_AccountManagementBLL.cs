@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using DTO;
 
@@ -81,6 +82,7 @@ namespace BLL
         public string ChangePassWord(Account account,string NewPassWord)
         {
             string Result = "";
+            // Thêm hàm check có đúng mậth khẩu cũ không 
             string CheckPassword = CheckLogicPassWord(NewPassWord);
             if (CheckPassword == "Valid_Password")
             {
@@ -93,6 +95,29 @@ namespace BLL
                 return CheckPassword;
             }
             return Result;
+        }
+        public string CheckInfoAccount(Person person)
+        {
+            // Kiểm tra nhập vào là số 
+            foreach (char c in person.Phone)
+            {
+                if (!char.IsDigit(c))
+                    return "Only_Digits_Allowed";
+            }
+            // Kiểm tra 10 số 
+            if (person.Phone.Length != 10)
+            {
+                return "Must_10_Digits";
+            } 
+            // Kiểm Tra k có space 
+            if (string.IsNullOrWhiteSpace(person.Email))
+                return "Email_Required";
+            // Kiểm tra có @ có . sau @
+            if (!Regex.IsMatch(person.Email, @"^[^@\s]+@[^@\s]+\.[^@\s]+$"))
+                return "Invalid_Email_Format";
+
+            return "Valid";
+        }
         }
     }
         
