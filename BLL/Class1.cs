@@ -8,6 +8,6 @@ namespace BLL
 {
     public class Class1
     {
-        //hello world djt me thk duy
+        //toi bi ngu
     }
 }
