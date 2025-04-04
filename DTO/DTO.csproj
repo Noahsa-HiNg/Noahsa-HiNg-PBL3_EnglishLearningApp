@@ -52,6 +52,7 @@
     <Compile Include="Lesson.cs" />
     <Compile Include="Notification.cs" />
     <Compile Include="Notification_Recipient.cs" />
+    <Compile Include="OTPManager.cs" />
     <Compile Include="Payment.cs" />
     <Compile Include="Person.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
