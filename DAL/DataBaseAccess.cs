@@ -108,8 +108,6 @@ namespace DAL
             {
                 return "Not_Found_Account";
             }
-            {
-            }
         }
     }
 }
