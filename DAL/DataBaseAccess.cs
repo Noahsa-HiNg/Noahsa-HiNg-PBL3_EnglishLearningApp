@@ -56,7 +56,7 @@ namespace DAL
             return ID_user;
 
         }
-        public static bool CheckGmailData(string Gmail)
+        public static bool CheckEmailData(string email)
         {
 
             string ID_user = null;
@@ -69,7 +69,7 @@ namespace DAL
             command.CommandType = CommandType.StoredProcedure;
             command.CommandText = "proc_logic"; //proc_logic là tên procedure trong database
             command.Connection = sqlCon;
-            command.Parameters.AddWithValue("@gmail", Gmail);
+            command.Parameters.AddWithValue("@email", email);
             SqlDataReader reader = command.ExecuteReader();
             if (reader.HasRows)
             {
@@ -82,11 +82,34 @@ namespace DAL
             }
             else
             {
-                return true;
+                return false;
             }
-            return false;
-
+            return true;
         }
-
+        public string ChangeDataPassword(Person person, string newpassword)
+        {
+            try
+            {
+                SqlConnection sqlCon = SqlconnectionData.connnect();
+                if (sqlCon.State == ConnectionState.Closed)
+                {
+                    sqlCon.Open();
+                }
+                SqlCommand command = new SqlCommand();
+                command.CommandType = CommandType.StoredProcedure;
+                command.CommandText = "proc_logic";
+                command.Connection = sqlCon;
+                command.Parameters.AddWithValue("@Id", person.Account_ID);
+                command.Parameters.AddWithValue("@NewPassword", newpassword);
+                command.ExecuteNonQuery();
+                return "Password_updated_successfully.";
+            }
+            catch (SqlException ex)
+            {
+                return "Not_Found_Account";
+            }
+            {
+            }
+        }
     }
 }

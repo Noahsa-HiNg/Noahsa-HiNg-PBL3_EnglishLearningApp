@@ -13,9 +13,9 @@ namespace DAL
             string infor = CheckLoginData(account);
             return infor;
         }
-        public bool CheckGmail(string Gmail)
+        public bool CheckEmail(string Gmail)
         {
-            if (CheckGmailData(Gmail) == true)
+            if (CheckEmailData(Gmail) == true)
             {
                 return true;
             }
@@ -23,6 +23,11 @@ namespace DAL
             {
                 return false;
             }
+        }
+        public string ChangePassword(Person person, string newpassword)
+        {
+            string result = ChangeDataPassword(person,newpassword);
+            return result;
         }
     }
 }

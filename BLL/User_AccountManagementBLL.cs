@@ -49,7 +49,7 @@ namespace BLL
             }
             return ResultACC;
         }
-        public static bool SendOTP(string recipientEmail, string otpCode)
+        public static bool SendOTP(string recipientEmail, string otpCode)   
         {
             try
             {
@@ -81,8 +81,7 @@ namespace BLL
                 return false;
             }
         }
-
-        public string CheckOTP(Account account, Customer customer, string OTP, OTPManager OTPmanager)
+        public string CheckOTP(string OTP, OTPManager OTPmanager)
         {
             if (DateTime.Now > OTPmanager.expiryTime) // Kiểm tra OTP có hết hạn không
             {
@@ -90,14 +89,39 @@ namespace BLL
             }
             if (OTP == OTPmanager.storedOTP)
             {
-                //thêm tài khoản và thông tin vào database
                 return "OTP_valid";
             }
             else
             {
                 return "OTP_not_valid";
             }
+        }
+        public string AddAccountCustomer(Account account, Customer customer)
+        {
+            ///Add Cus
+            return "Add_valid";
+        }
+        public string ForGivePassword(Person person, string newPassWord, OTPManager OTPmanager, string OTP)
+        {
+            string result = "";
+            if (SendOTP(person.Email, OTPmanager.storedOTP))
+            {
+                if (CheckOTP(OTP, OTPmanager) == "OTP_valid")
+                {
+                    acAccess.ChangePassword(person,newPassWord);
+                    result = "Forgive_valid";
+                }
+                else
+                {
+                    result = CheckOTP(OTP, OTPmanager);
+                }
+            }
+            else
+            {
+                result = "Can't send Email";
+            }
 
+            return result;
         }
     }
-}
+}   
