@@ -13,7 +13,7 @@ namespace DAL
     {
         public static SqlConnection connnect()
         {
-            string strCon = null;//Nhap sever data
+            string strCon = @" Data Source = DESKTOP - 03GMFL8; Initial Catalog = PBL3_DB; Integrated Security = True;";
             SqlConnection sqlcon = null;
             if (sqlcon == null)
             {
@@ -35,7 +35,7 @@ namespace DAL
             }
             SqlCommand command = new SqlCommand();
             command.CommandType = CommandType.StoredProcedure;
-            command.CommandText = "proc_logic"; //proc_logic là tên procedure trong database
+            command.CommandText = "CheckLoginData"; //proc_logic là tên procedure trong database
             command.Connection = sqlCon;
             command.Parameters.AddWithValue("@user", account.Username);
             command.Parameters.AddWithValue("@pass", account.Password);
