@@ -15,11 +15,11 @@ namespace DTO
         public string Option2 { get; set; }
         public string Option3 { get; set; }
         public string Option4 { get; set; }
-        public string Correct_Answer { get; set; }
+        public string Correct_Option{ get; set; }
 
         public TestQuestion() { }
 
-        public TestQuestion(int questionId, int testId, string questionText, string option1, string option2, string option3, string option4, string correctAnswer)
+        public TestQuestion(int questionId, int testId, string questionText, string option1, string option2, string option3, string option4, string correct_option)
         {
             Question_ID = questionId;
             Test_ID = testId;
@@ -28,7 +28,7 @@ namespace DTO
             Option2 = option2;
             Option3 = option3;
             Option4 = option4;
-            Correct_Answer = correctAnswer;
+            Correct_Option = correct_option;
         }
     }
 }
