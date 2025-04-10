@@ -42,6 +42,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Class1.cs" />
+    <Compile Include="CusManagementBLL.cs" />
+    <Compile Include="CusValidatorBLL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UserDataValidatorBLL.cs" />
     <Compile Include="User_AccountManagementBLL.cs" />

@@ -109,5 +109,76 @@ namespace DAL
                 return "Not_Found_Account";
             }
         }
+        public string ChangeDataName(Person person, string newname)
+        {
+            SqlConnection sqlCon = SqlconnectionData.connnect();
+            if (sqlCon.State == ConnectionState.Closed)
+            {
+                sqlCon.Open();
+            }
+            SqlCommand command = new SqlCommand();
+            command.CommandType = CommandType.StoredProcedure;
+            command.CommandText = "proc_logic";
+            command.Connection = sqlCon;
+            command.Parameters.AddWithValue("@Id", person.Account_ID);
+            command.Parameters.AddWithValue("@NewName", newname);
+            command.ExecuteNonQuery();
+            return "Name_updated_successfully.";
+        }
+        public string ChangeDataPhone(Person person, string newphone)
+        {
+            SqlConnection sqlCon = SqlconnectionData.connnect();
+            if (sqlCon.State == ConnectionState.Closed)
+            {
+                sqlCon.Open();
+            }
+            SqlCommand command = new SqlCommand();
+            command.CommandType = CommandType.StoredProcedure;
+            command.CommandText = "proc_logic";
+            command.Connection = sqlCon;
+            command.Parameters.AddWithValue("@Id", person.Account_ID);
+            command.Parameters.AddWithValue("@NewPhone", newphone);
+            command.ExecuteNonQuery();
+            return "Phone_updated_successfully.";
+        }
+        public string DeleteDataCus(Customer customer)
+        {
+            SqlConnection sqlCon = SqlconnectionData.connnect();
+            if (sqlCon.State == ConnectionState.Closed)
+            {
+                sqlCon.Open();
+            }
+
+            SqlCommand command = new SqlCommand();
+            command.CommandType = CommandType.StoredProcedure;
+            command.CommandText = "proc_delete_customer";
+            //CREATE PROCEDURE proc_delete_customer
+            //    @AccountID INT
+            //AS
+            //BEGIN
+            // Xóa trong các Table khác 
+            //DELETE FROM Payment WHERE CustomerID = @AccountID;
+            //DELETE FROM NotificationRecipient WHERE CustomerID = @AccountID;
+            //...................
+            //Xóa trong table Customer 
+            //DELETE FROM Customers WHERE Account_ID = @AccountID;
+            //END
+            command.Connection = sqlCon;
+            command.Parameters.AddWithValue("@AccountID", customer.Account_ID); 
+            command.ExecuteNonQuery();
+            return "DeleteCus_successfully";
+        }
+        public void LockDataCus(Customer customer)
+        {
+            SqlConnection sqlCon = SqlconnectionData.connnect();
+            if (sqlCon.State == ConnectionState.Closed)
+            {
+                sqlCon.Open();
+            }
+            SqlCommand command = new SqlCommand();
+            command.CommandType = CommandType.StoredProcedure;
+            command.CommandText = "proc_logic";
+            command.Connection = sqlCon;
+        }
     }
 }

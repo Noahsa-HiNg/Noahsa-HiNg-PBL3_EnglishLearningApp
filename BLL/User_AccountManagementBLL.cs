@@ -49,7 +49,7 @@ namespace BLL
             }
             return ResultACC;
         }
-        public static bool SendOTP(string recipientEmail, string otpCode)   
+        public static bool SendOTP(string recipientEmail, string otpCode)
         {
             try
             {
@@ -108,7 +108,7 @@ namespace BLL
             {
                 if (CheckOTP(OTP, OTPmanager) == "OTP_valid")
                 {
-                    acAccess.ChangePassword(person,newPassWord);
+                    acAccess.ChangePassword(person, newPassWord);
                     result = "Forgive_valid";
                 }
                 else
@@ -123,5 +123,44 @@ namespace BLL
 
             return result;
         }
+        public string ChangePassWord(Person person, string newpassword)
+        {
+            string result = "";
+            if (acAccess.ChangePassword(person, newpassword) == "Password_updated_successfully.")
+            {
+                result = "ChangePassSuccess";
+            }
+            else
+            {
+                result = acAccess.ChangePassword(person, newpassword);
+            }
+            return result;
+        }
+        public string ChangeName(Person person, string newname)
+        {
+            string result = "";
+            if (acAccess.ChangeName(person, newname) == "Name_updated_successfully.")
+            {
+                result = "ChangeNameSuccess";
+            }
+            else
+            {
+                result = acAccess.ChangeName(person, newname);
+            }
+            return result;
+        }
+        public string ChangePhone(Person person, string newphone)
+        {
+            string result = "";
+            if (acAccess.ChangePhone(person, newphone) == "Phone_updated_successfully.")
+            {
+                result = "ChangePhoneSuccess";
+            }
+            else
+            {
+                result = acAccess.ChangePhone(person, newphone);
+            }
+            return result;
+        }
     }
-}   
+}  

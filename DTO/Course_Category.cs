@@ -14,7 +14,7 @@ namespace DTO
         public decimal Price { get; set; }
         public int Created_By { get; set; }
         public string Created_By_Role { get; set; }
-        public int Update_By { get;set }
+        public int Update_By { get; set; }
         public string Update_By_Role { get; set; }
         public DateTime Created_Date { get; set; }
         public DateTime Updated_Date { get; set; }

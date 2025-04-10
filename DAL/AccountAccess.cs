@@ -29,5 +29,15 @@ namespace DAL
             string result = ChangeDataPassword(person,newpassword);
             return result;
         }
+        public string ChangeName(Person person, string newname)
+        {
+            string result = ChangeDataName(person, newname);
+            return result;
+        }
+        public string ChangePhone(Person person, string newphone)
+        {
+            string result = ChangeDataPhone(person, newphone);
+            return result;
+        }
     }
 }
