@@ -1,5 +1,4 @@
-﻿
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,13 +7,13 @@ using DTO;
 using DAL;
 namespace BLL
 {
-    class CusManagementBLL:CusValidatorBLL
+    public class EditorManagementBLL:EditorValidator
     {
-        CustomerAccess cusaccess = new CustomerAccess();
-        public string[] AddCustomer(Account account, Customer customer)
+        EditorAccess editorAccess = new EditorAccess();
+        public string[] AddEditor(Editor editor, Account account)
         {
             string[] ResultACC = new string[5];
-            string[] information = { account.Username, account.Password, customer.Name, customer.Phone, customer.Email };
+            string[] information = { account.Username, account.Password, editor.Name, editor.Phone,editor.Email };
             MyDelegate[] methods = { ChecklogicUsername, CheckLogicPassWord, ChecklogicName, ChecklogicPhone, ChecklogicEmail };
             for (int i = 0; i < ResultACC.Length; i++)
             {
@@ -29,19 +28,18 @@ namespace BLL
             }
             return ResultACC;
         }
-        public string DeleteCustomer(Customer customer)
+        public string DeleteEditor(Editor editor)
         {
-            string result = cusaccess.DeleteCus(customer);
+            string result = editorAccess.DeleteDataEditor(editor);
             return result;
         }
-        public void LockCus(Customer customer)
+        public (Editor,Account) ShowInforEditor(Editor editor)
         {
-            cusaccess.LockCus(customer);
+            return editorAccess.ShowDataInforEditor(editor.ID);
         }
-        public (Customer,Account) ShowInforCus(Customer customer)
+        public string ChangePermiss(Editor editor)
         {
-            return cusaccess.ShowDataInforCus(customer.ID);
+            return editorAccess.ChangeDataPermiss(editor);
         }
-
     }
 }

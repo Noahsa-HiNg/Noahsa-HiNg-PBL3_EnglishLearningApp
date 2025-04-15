@@ -7,6 +7,7 @@ using System.Data.SqlClient;
 using System.Net.Http;
 using DTO;
 using System.Data;
+using System.Reflection;
 namespace DAL
 {
     public class SqlconnectionData
@@ -164,7 +165,7 @@ namespace DAL
             //DELETE FROM Customers WHERE Account_ID = @AccountID;
             //END
             command.Connection = sqlCon;
-            command.Parameters.AddWithValue("@AccountID", customer.Account_ID); 
+            command.Parameters.AddWithValue("@AccountID", customer.Account_ID);
             command.ExecuteNonQuery();
             return "DeleteCus_successfully";
         }
@@ -179,6 +180,177 @@ namespace DAL
             command.CommandType = CommandType.StoredProcedure;
             command.CommandText = "proc_logic";
             command.Connection = sqlCon;
+        }
+        public (Customer, Account) ShowDataInforCus(string customerId)
+        {
+            SqlConnection sqlCon = SqlconnectionData.connnect();
+            if (sqlCon.State == ConnectionState.Closed)
+            {
+                sqlCon.Open();
+            }
+
+            SqlCommand command = new SqlCommand();
+            command.Connection = sqlCon;
+            command.CommandType = CommandType.StoredProcedure;
+            command.CommandText = "proc_show_customer";
+            //            CREATE PROCEDURE proc_show_customer
+            //                @Customer_ID INT
+            //            AS
+            //BEGIN
+            //    SELECT
+            //        c.Customer_ID,
+            //        c.Account_ID,
+            //        c.Name,
+            //        c.Phone,
+            //        c.Email,
+            //        c.Notification_Enabled,
+            //        c.Created_date,
+            //        c.Updated_date,
+            //        a.username,
+            //        a.password
+            //    FROM
+            //        Customer c
+            //    INNER JOIN
+            //        Account a ON c.Account_ID = a.Account_ID
+            //    WHERE
+            //        c.Customer_ID = @Customer_ID
+            //END
+            command.Parameters.AddWithValue("@Customer_ID", customerId);
+
+            SqlDataReader reader = command.ExecuteReader();
+
+            Customer customer = null;
+            Account account = null;
+
+            if (reader.Read())
+            {
+                customer = new Customer();
+                account = new Account();
+
+                // Gán dữ liệu cho Customer
+                customer.ID = reader["Customer_ID"].ToString();
+                customer.Account_ID =reader["Account_ID"].ToString();
+                customer.Name = reader["Name"].ToString();
+                customer.Phone = reader["Phone"].ToString();
+                customer.Email = reader["Gmail"].ToString();
+                customer.Notification_Enable = Convert.ToBoolean(reader["Notification_enabled"]);
+                customer.Created_Date = Convert.ToDateTime(reader["Created_date"]);
+                customer.Updated_Date = Convert.ToDateTime(reader["Updated_date"]);
+
+                // Gán dữ liệu cho Account
+                account.ID = reader["Account_ID"].ToString();
+                account.Username = reader["username"].ToString();
+                account.Password = reader["password"].ToString();
+            }
+
+            reader.Close();
+            sqlCon.Close();
+
+            return (customer, account);
+        }
+        public string DeleteDataEditor(Editor editor)
+        {
+            SqlConnection sqlCon = SqlconnectionData.connnect();
+            if (sqlCon.State == ConnectionState.Closed)
+            {
+                sqlCon.Open();
+            }
+
+            SqlCommand command = new SqlCommand();
+            command.CommandType = CommandType.StoredProcedure;
+            command.CommandText = "proc_delete_editor";
+            //CREATE PROCEDURE proc_delete_editor 
+            //    @EditorID INT
+            //AS
+            //BEGIN
+            //DELETE FROM Editor WHERE Editor_ID = @EditorID;
+            //END
+            command.Connection = sqlCon;
+            command.Parameters.AddWithValue("@EditorID", editor.Account_ID);
+            command.ExecuteNonQuery();
+            return "DeleteEditor_successfully";
+        }
+        public (Editor, Account) ShowDataInforEditor(string editorID)
+        {
+            SqlConnection sqlCon = SqlconnectionData.connnect();
+            if (sqlCon.State == ConnectionState.Closed)
+            {
+                sqlCon.Open();
+            }
+
+            SqlCommand command = new SqlCommand();
+            command.Connection = sqlCon;
+            command.CommandType = CommandType.StoredProcedure;
+            command.CommandText = "proc_show_editor";
+            //            CREATE PROCEDURE proc_show_editor
+            //                @Editor_ID INT
+            //            AS
+            //BEGIN
+            //    SELECT
+            //        e.Editor_ID,
+            //        e.Account_ID,
+            //        e.Name,
+            //        e.Phone,
+            //        e.Email,
+            //        e.Permission 
+            //        e.Status 
+            //        e.Created_date,
+            //        e.Updated_date,
+            //        a.username,
+            //        a.password
+            //    FROM
+            //        Editor e
+            //    INNER JOIN
+            //        Account a ON e.Account_ID = a.Account_ID
+            //    WHERE
+            //        e.Editor_ID = @Editor_ID
+            //END
+            command.Parameters.AddWithValue("@Customer_ID", editorID);
+
+            SqlDataReader reader = command.ExecuteReader();
+
+            Editor editor = null;
+            Account account = null;
+
+            if (reader.Read())
+            {
+                editor = new Editor();
+                account = new Account();
+
+                // Gán dữ liệu cho Editor
+                editor.ID = reader["Editor_ID"].ToString();
+                editor.Account_ID = reader["Account_ID"].ToString();
+                editor.Name = reader["Name"].ToString();
+                editor.Phone = reader["Editor_ID"].ToString();
+                editor.Email = reader["gmail"].ToString();
+                editor.Permissions = reader["Permission"].ToString();
+                editor.Status = reader["Status"].ToString();
+                editor.Created_Date = Convert.ToDateTime(reader["created_date"]);
+                editor.Updated_Date = Convert.ToDateTime(reader["updated_date"]);
+
+                // Gán dữ liệu cho Account
+                account.ID = reader["Account_ID"].ToString();
+                account.Username = reader["username"].ToString();
+                account.Password = reader["password"].ToString();
+            }
+
+            reader.Close();
+            sqlCon.Close();
+
+            return (editor, account);
+        }
+        public string ChangeDataPermiss(Editor editor)
+        {
+            SqlConnection sqlCon = SqlconnectionData.connnect();
+            if (sqlCon.State == ConnectionState.Closed)
+            {
+                sqlCon.Open();
+            }
+            SqlCommand command = new SqlCommand();
+            command.CommandType = CommandType.StoredProcedure;
+            command.CommandText = "proc_logic";
+            command.Connection = sqlCon;
+            return "Change_Permiss_Success";
         }
     }
 }

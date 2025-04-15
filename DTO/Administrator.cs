@@ -10,7 +10,7 @@ namespace DTO
     {
         public Administrator() { }
 
-        public Administrator(int id, int accountId, string name, string phone, string email)
+        public Administrator(string id, string accountId, string name, string phone, string email)
             : base(id, accountId, name, phone, email)
         {
         }

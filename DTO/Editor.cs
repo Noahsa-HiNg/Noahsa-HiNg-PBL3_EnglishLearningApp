@@ -15,7 +15,7 @@ namespace DTO
         public DateTime Updated_Date { get; set; }
         public Editor() { }
 
-        public Editor(int id, int accountId, string name, string phone, string email, string permissions, string status, DateTime createdDate, DateTime updatedDate)
+        public Editor(string id, string accountId, string name, string phone, string email, string permissions, string status, DateTime createdDate, DateTime updatedDate)
             : base(id, accountId, name, phone, email)
         {
             Permissions = permissions;
