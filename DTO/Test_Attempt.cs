@@ -16,7 +16,7 @@ namespace DTO
         public double Score { get; set; }
         public string Status { get; set; }
         public int Elapsed_Time { get; set; }
-        public bool Can_Resume { get;set }
+        public bool Can_Resume { get; set; }
 
         public TestAttempt() { }
 
