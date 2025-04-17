@@ -11,7 +11,9 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-
+using BLL;
+using DAL;
+using DTO;
 namespace GUI
 {
     /// <summary>
@@ -69,7 +71,9 @@ namespace GUI
             try
             {
                 // TODO: Thêm logic đăng nhập thực tế
-                bool isLoginSuccessful = AuthenticateUser(username, password, rememberMe);
+                string result = AuthenticateUser(username, password, rememberMe);
+                bool isLoginSuccessful = (result != "NULL_Username" && result != "NULL_Password") ? true : false;
+
 
                 if (isLoginSuccessful)
                 {
@@ -81,7 +85,7 @@ namespace GUI
                 }
                 else
                 {
-                    MessageBox.Show("Invalid username or password", "Login Failed",
+                    MessageBox.Show(result, "Login Failed",
                         MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
@@ -114,20 +118,17 @@ namespace GUI
                 MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
-        private bool AuthenticateUser(string username, string password, bool rememberMe)
+        private string AuthenticateUser(string username, string password, bool rememberMe)
         {
             // TODO: Thêm logic xác thực thực tế
             // Tạm thời dùng tài khoản mẫu để test
-            if (username == "admin" && password == "123456")
-            {
-                if (rememberMe)
-                {
-                    // Lưu thông tin đăng nhập (sẽ thêm sau)
-                    SaveLoginInfo(username, password);
-                }
-                return true;
-            }
-            return false;
+            Account account = new Account();
+            account.Username = username;
+            account.Password = password;
+
+            AccountAccess acAccess = new AccountAccess();
+            string infor = acAccess.CheckLoginData(account);
+            return infor;
         }
 
         private void SaveLoginInfo(string username, string password)
