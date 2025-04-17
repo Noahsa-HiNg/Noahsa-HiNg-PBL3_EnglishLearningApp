@@ -6,6 +6,13 @@
         xmlns:local="clr-namespace:GUI"
         mc:Ignorable="d"
         Title="LoginGUI" Height="450" Width="400">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Resource/LoginUIResource.xaml"></ResourceDictionary>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
     <Grid Margin="20" >
         <StackPanel VerticalAlignment="Center">
             <!-- Tiêu đề -->

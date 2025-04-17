@@ -19,6 +19,7 @@ namespace GUI
         public MainWindow()
         {
             InitializeComponent();
+            LoginGUI loginGUI = new LoginGUI();
         }
     }
 }
