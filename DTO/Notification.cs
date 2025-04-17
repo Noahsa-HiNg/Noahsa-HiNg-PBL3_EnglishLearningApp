@@ -12,7 +12,7 @@ namespace DTO
         public int Created_By { get; set; }
         public string Title { get; set; }
         public string Content { get; set; }
-        public int Created_By { get; set; }
+        //public int Created_By { get; set; }
         public string Create_By_Role { get; set; }
         public DateTime Created_Date { get; set; }
 
