@@ -53,27 +53,30 @@ namespace BLL
         {
             try
             {
-                // Cấu hình SMTP
-                SmtpClient smtpClient = new SmtpClient("smtp.gmail.com")
+                var fromAddress = new MailAddress("Noobita.Vn@gmail.com");
+                var toAddress = new MailAddress(recipientEmail);
+                const string frommpass = "fypc thnw ptss bitk";
+                const string subject = "Your OTP Code";
+                string body = $"Your OTP code is: {otpCode}";
+
+                var smtp = new SmtpClient
                 {
+                    Host = "smtp.gmail.com",
                     Port = 587,
-                    Credentials = new NetworkCredential("your-email@gmail.com", "your-app-password"),
-                    EnableSsl = true
+                    EnableSsl = true,
+                    DeliveryMethod = SmtpDeliveryMethod.Network,
+                    UseDefaultCredentials = false,
+                    Credentials = new NetworkCredential(fromAddress.Address, frommpass),
+                    Timeout = 200000
                 };
-
-                // Tạo nội dung email
-                MailMessage mail = new MailMessage
+                using (var message = new MailMessage(fromAddress, toAddress)
                 {
-                    From = new MailAddress("your-email@gmail.com"),
-                    Subject = "Mã OTP của bạn",
-                    Body = $"Mã OTP của bạn là: <b>{otpCode}</b>. Mã này sẽ hết hạn sau 5 phút.",
-                    IsBodyHtml = true
-                };
-
-                mail.To.Add(recipientEmail);
-
-                // Gửi email
-                smtpClient.Send(mail);
+                    Subject = subject,
+                    Body = body
+                })
+                {
+                    smtp.Send(message);
+                }
                 return true;
             }
             catch (Exception ex)

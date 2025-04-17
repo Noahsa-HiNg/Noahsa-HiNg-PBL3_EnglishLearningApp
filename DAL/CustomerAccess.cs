@@ -17,5 +17,12 @@ namespace DAL
         {
             LockDataCus(customer);
         }
+        // tuấn anh 
+        public int Get_quantily_Customer()
+        {
+            int quantily = Get_quantily_Customer_DATA();
+            return quantily;
+        }
+        //
     }
 }

@@ -7,15 +7,15 @@ namespace DTO
 {
     public class Person
     {
-        public string  ID { get; set; }  
-        public string Account_ID { get; set; }
+        public int  ID { get; set; }  
+        public int Account_ID { get; set; }
         public string Name { get; set; }
         public string Phone { get; set; }
         public string Email { get; set; }
 
         public Person() { }
 
-        public Person(string id, string accountId, string name, string phone, string email)
+        public Person(int id,int accountId, string name, string phone, string email)
         {
             ID = id;
             Account_ID = accountId;

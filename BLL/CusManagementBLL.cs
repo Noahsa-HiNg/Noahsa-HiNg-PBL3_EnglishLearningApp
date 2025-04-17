@@ -42,6 +42,12 @@ namespace BLL
         {
             return cusaccess.ShowDataInforCus(customer.ID);
         }
+        // tuấn anh 
+        public int createID_Customer()
+        {
+            int id = cusaccess.Get_quantily_Customer() + 1;
+            return id;
+        }
 
     }
 }

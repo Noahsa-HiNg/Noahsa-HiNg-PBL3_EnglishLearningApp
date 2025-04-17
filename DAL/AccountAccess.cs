@@ -39,5 +39,12 @@ namespace DAL
             string result = ChangeDataPhone(person, newphone);
             return result;
         }
+        // tuấn anh mới thêm
+        public int Get_quantily_Account()
+        {
+            int quantily = Get_quantily_Account_DATA();
+            return quantily;
+        }
+        //
     }
 }
