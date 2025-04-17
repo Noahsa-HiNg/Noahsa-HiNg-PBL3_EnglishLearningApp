@@ -45,6 +45,7 @@
     <Compile Include="CustomerAccess.cs" />
     <Compile Include="DataBaseAccess.cs" />
     <Compile Include="EditorAccess.cs" />
+    <Compile Include="LessonAccess.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

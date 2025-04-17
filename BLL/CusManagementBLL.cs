@@ -31,21 +31,21 @@ namespace BLL
         }
         public string DeleteCustomer(Customer customer)
         {
-            string result = cusaccess.DeleteCus(customer);
+            string result = cusaccess.DeleteDataCus(customer);
             return result;
         }
         public void LockCus(Customer customer)
         {
-            cusaccess.LockCus(customer);
+            cusaccess.LockDataCus(customer);
         }
         public (Customer,Account) ShowInforCus(Customer customer)
         {
             return cusaccess.ShowDataInforCus(customer.ID);
         }
         // tuấn anh 
-        public int createID_Customer()
+        public int CreateID_Customer()
         {
-            int id = cusaccess.Get_quantily_Customer() + 1;
+            int id = cusaccess.Get_Quantily_Customer_DATA() + 1;
             return id;
         }
 

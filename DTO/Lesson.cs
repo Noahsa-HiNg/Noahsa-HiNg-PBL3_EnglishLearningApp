@@ -8,7 +8,7 @@ namespace DTO
 {
     public class Lesson
     {
-        public int Lesson_ID { get; set; }
+        public string Lesson_ID { get; set; }
         public int Category_ID { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }

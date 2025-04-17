@@ -28,7 +28,7 @@ namespace BLL
             {
                 return "NULL_Password";
             }
-            string info = acAccess.CheckLogin(account);
+            string info = acAccess.CheckLoginData(account);
             return info;
         }
         public string[] SignUp(Account account, Customer customer)
@@ -111,7 +111,7 @@ namespace BLL
             {
                 if (CheckOTP(OTP, OTPmanager) == "OTP_valid")
                 {
-                    acAccess.ChangePassword(person, newPassWord);
+                    acAccess.ChangeDataPassword(person, newPassWord);
                     result = "Forgive_valid";
                 }
                 else
@@ -129,41 +129,46 @@ namespace BLL
         public string ChangePassWord(Person person, string newpassword)
         {
             string result = "";
-            if (acAccess.ChangePassword(person, newpassword) == "Password_updated_successfully.")
+            if (acAccess.ChangeDataPassword(person, newpassword) == "Password_updated_successfully.")
             {
                 result = "ChangePassSuccess";
             }
             else
             {
-                result = acAccess.ChangePassword(person, newpassword);
+                result = acAccess.ChangeDataPassword(person, newpassword);
             }
             return result;
         }
         public string ChangeName(Person person, string newname)
         {
             string result = "";
-            if (acAccess.ChangeName(person, newname) == "Name_updated_successfully.")
+            if (acAccess.ChangeDataName(person, newname) == "Name_updated_successfully.")
             {
                 result = "ChangeNameSuccess";
             }
             else
             {
-                result = acAccess.ChangeName(person, newname);
+                result = acAccess.ChangeDataName(person, newname);
             }
             return result;
         }
         public string ChangePhone(Person person, string newphone)
         {
             string result = "";
-            if (acAccess.ChangePhone(person, newphone) == "Phone_updated_successfully.")
+            if (acAccess.ChangeDataPhone(person, newphone) == "Phone_updated_successfully.")
             {
                 result = "ChangePhoneSuccess";
             }
             else
             {
-                result = acAccess.ChangePhone(person, newphone);
+                result = acAccess.ChangeDataPhone(person, newphone);
             }
             return result;
+        }
+        public int CreateID_Customer()
+        {
+            int id = acAccess.Get_Quantily_Account_DATA() + 1;
+            return id;
         }
     }
 }  
