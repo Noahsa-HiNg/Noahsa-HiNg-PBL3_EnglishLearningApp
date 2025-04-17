@@ -17,7 +17,7 @@ namespace DTO
 
         public Customer() { }
 
-        public Customer(int id, int accountId, string name, string phone, string email, bool notificationEnable, DateTime createdDate, DateTime updatedDate)
+        public Customer(string id, string accountId, string name, string phone, string email, bool notificationEnable, DateTime createdDate, DateTime updatedDate)
             : base(id, accountId, name, phone, email)
         {
             Notification_Enable = notificationEnable;

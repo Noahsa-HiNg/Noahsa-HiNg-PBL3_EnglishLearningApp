@@ -134,7 +134,7 @@ namespace DAL
         public string DeleteDataLesson(string ID)
         {
             SqlConnection sqlCon = SqlconnectionData.connnect();
-            (sqlCon.State == ConnectionState.Closed)
+            if(sqlCon.State == ConnectionState.Closed)
         {
                 sqlCon.Open();
             }

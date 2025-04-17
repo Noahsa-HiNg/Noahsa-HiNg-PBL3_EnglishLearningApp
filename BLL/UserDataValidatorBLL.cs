@@ -101,7 +101,7 @@ namespace BLL
                 return "WEAK_Email_Format";
             }
             //kiểm tra xem email có tồn tại trong database không
-            if (acAccess.CheckEmail(email) == true)
+            if (acAccess.CheckEmailData(email) == true)
             {
                 return "WEAK_Email_Exist";
             }

@@ -23,7 +23,7 @@ namespace DTO
 
         public Lesson() { }
 
-        public Lesson(int lessonId, int categoryId, string title, string description, string videoUrl, string example, int createdBy,string create_by_role, DateTime createdDate, int update_by,string update_by_role, DateTime updatedDate)
+        public Lesson(string lessonId, int categoryId, string title, string description, string videoUrl, string example, int createdBy,string create_by_role, DateTime createdDate, int update_by,string update_by_role, DateTime updatedDate)
         {
             Lesson_ID = lessonId;
             Category_ID = categoryId;

@@ -8,7 +8,7 @@ namespace DTO
 {
     public class Account
     {
-        public int ID { get; set; }
+        public string ID { get; set; }
         public string Username { get; set; }
         public string Password { get; set; }
         public string Avatar { get; set; }
@@ -17,7 +17,7 @@ namespace DTO
 
         public Account() { }
 
-        public Account(int id, string username, string password,string avatar,string role, int status)
+        public Account(string id, string username, string password,string avatar,string role, int status)
         {
             ID = id;
             Username = username;
