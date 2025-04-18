@@ -1,149 +1,146 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using BLL;
 using DAL;
 using DTO;
+
 namespace GUI
 {
-    /// <summary>
-    /// Interaction logic for LoginGUI.xaml
-    /// </summary>
     public partial class LoginGUI : Window
     {
         public string ID_user;
+
         public LoginGUI()
         {
             InitializeComponent();
 
-            // Đăng ký sự kiện cho nút đăng nhập
-            btnLogin.Click += BtnLogin_Click;
-
-            // Sự kiện nhấn Enter trong ô mật khẩu
-            txtPassword.KeyDown += TxtPassword_KeyDown;
-
-            // Sự kiện click "Forgot password"
-            var forgotPasswordText = FindName("forgotPasswordText") as TextBlock;
-            if (forgotPasswordText != null)
-            {
-                forgotPasswordText.MouseDown += ForgotPasswordText_MouseDown;
-            }
-
-            // Sự kiện click "Sign in" (ở dòng Already have an account)
-            var signInText = FindName("signInText") as TextBlock;
-            if (signInText != null)
-            {
-                signInText.MouseDown += SignInText_MouseDown;
-            }
+            // Đặt focus vào ô username khi khởi động
+            txtUsername.Focus();
         }
 
         private void BtnLogin_Click(object sender, RoutedEventArgs e)
         {
-            string username = txtUsername.Text;
-            string password = txtPassword.Password;
-            bool rememberMe = chkRememberMe.IsChecked ?? false;
-
-            // Validate input
-            if (string.IsNullOrWhiteSpace(username))
-            {
-                MessageBox.Show("Please enter your email or username", "Error",
-                    MessageBoxButton.OK, MessageBoxImage.Warning);
-                return;
-            }
-
-            if (string.IsNullOrWhiteSpace(password))
-            {
-                MessageBox.Show("Please enter your password", "Error",
-                    MessageBoxButton.OK, MessageBoxImage.Warning);
-                return;
-            }
-
-            // Xử lý đăng nhập
-            try
-            {
-                // TODO: Thêm logic đăng nhập thực tế
-                string result = AuthenticateUser(username, password, rememberMe);
-                bool isLoginSuccessful = (result != "NULL_Username" && result != "NULL_Password") ? true : false;
-
-
-                if (isLoginSuccessful)
-                {
-                    MessageBox.Show("Login successful!", "Success",
-                        MessageBoxButton.OK, MessageBoxImage.Information);
-
-                    // Mở cửa sổ chính sau khi đăng nhập thành công
-                    OpenMainDashboard();
-                }
-                else
-                {
-                    MessageBox.Show(result, "Login Failed",
-                        MessageBoxButton.OK, MessageBoxImage.Error);
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Login error: {ex.Message}", "Error",
-                    MessageBoxButton.OK, MessageBoxImage.Error);
-            }
+            AttemptLogin();
         }
 
         private void TxtPassword_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter)
             {
-                BtnLogin_Click(sender, e);
+                AttemptLogin();
             }
         }
 
-        private void ForgotPasswordText_MouseDown(object sender, MouseButtonEventArgs e)
+        private void ForgotPassword_Click(object sender, MouseButtonEventArgs e)
         {
-            // TODO: Xử lý quên mật khẩu
-            MessageBox.Show("Forgot password feature will be implemented soon", "Information",
+            MessageBox.Show("Please contact admin to reset your password", "Forgot Password",
                 MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
-        private void SignInText_MouseDown(object sender, MouseButtonEventArgs e)
+        private void SignIn_Click(object sender, MouseButtonEventArgs e)
         {
-            // TODO: Xử lý chuyển đến màn hình đăng nhập
-            MessageBox.Show("You are already on the sign in page", "Information",
+            MessageBox.Show("You are already on the login page", "Information",
                 MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
-        private string AuthenticateUser(string username, string password, bool rememberMe)
+        private void AttemptLogin()
         {
-            // TODO: Thêm logic xác thực thực tế
-            // Tạm thời dùng tài khoản mẫu để test
-            Account account = new Account();
-            account.Username = username;
-            account.Password = password;
-           
+            string username = txtUsername.Text.Trim();
+            string password = txtPassword.Password;
+            bool rememberMe = chkRememberMe.IsChecked ?? false;
+
+            if (ValidateInput(username, password))
+            {
+                try
+                {
+                    string loginResult = AuthenticateUser(username, password);
+
+                    if (loginResult != "NULL_Username" && loginResult != "NULL_Password")
+                    {
+                        HandleSuccessfulLogin(loginResult, rememberMe);
+                    }
+                    else
+                    {
+                        MessageBox.Show(GetLoginErrorMessage(loginResult), "Login Failed",
+                            MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Login error: {ex.Message}", "Error",
+                        MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+        }
+
+        private bool ValidateInput(string username, string password)
+        {
+            if (string.IsNullOrWhiteSpace(username))
+            {
+                MessageBox.Show("Please enter your email or username", "Error",
+                    MessageBoxButton.OK, MessageBoxImage.Warning);
+                txtUsername.Focus();
+                return false;
+            }
+
+            if (string.IsNullOrWhiteSpace(password))
+            {
+                MessageBox.Show("Please enter your password", "Error",
+                    MessageBoxButton.OK, MessageBoxImage.Warning);
+                txtPassword.Focus();
+                return false;
+            }
+
+            return true;
+        }
+
+        private string AuthenticateUser(string username, string password)
+        {
+            Account account = new Account
+            {
+                Username = username,
+                Password = password
+            };
+
             AccountAccess acAccess = new AccountAccess();
             string infor = acAccess.CheckLoginData(account);
             this.ID_user = infor;
             return infor;
         }
 
-        private void SaveLoginInfo(string username, string password)
+        private void HandleSuccessfulLogin(string userInfo, bool rememberMe)
         {
-            // TODO: Lưu thông tin đăng nhập vào file hoặc settings
+            if (rememberMe)
+            {
+                SaveLoginInfo(txtUsername.Text, txtPassword.Password);
+            }
+
+            MessageBox.Show("Login successful!", "Success",
+                MessageBoxButton.OK, MessageBoxImage.Information);
+
+            // Mở cửa sổ chính và đóng cửa sổ đăng nhập
+            MainWindow mainWindow = new MainWindow();
+            mainWindow.Show();
+            this.Close();
         }
 
-        private void OpenMainDashboard()
+        private string GetLoginErrorMessage(string errorCode)
         {
-            // TODO: Mở cửa sổ chính sau khi đăng nhập
-            // var dashboard = new DashboardWindow();
-            // dashboard.Show();
-            // this.Close();
+            return errorCode switch
+            {
+                "NULL_Username" => "Username does not exist",
+                "NULL_Password" => "Incorrect password",
+                _ => "Login failed. Please try again."
+            };
+        }
+
+        private void SaveLoginInfo(string username, string password)
+        {
+            // Lưu thông tin đăng nhập (có thể sử dụng Properties.Settings hoặc file config)
+            Properties.Settings.Default.Username = username;
+            Properties.Settings.Default.Password = password;
+            Properties.Settings.Default.Save();
         }
     }
 }

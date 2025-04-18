@@ -14,7 +14,7 @@ namespace DAL
     {
         public static SqlConnection connnect()
         {
-            string strCon = @" Data Source = DESKTOP - 03GMFL8; Initial Catalog = PBL3_DB; Integrated Security = True;";
+            string strCon = @" Data Source = DESKTOP-3LCRB7N\SQLEXPRESS01; Initial Catalog = PBL3; Integrated Security = True;";
             SqlConnection sqlcon = null;
             if (sqlcon == null)
             {
