@@ -21,12 +21,13 @@ namespace GUI
     /// </summary>
     public partial class LoginGUI : Window
     {
+        public string ID_user;
         public LoginGUI()
         {
             InitializeComponent();
 
             // Đăng ký sự kiện cho nút đăng nhập
-            btnSignIn.Click += BtnSignIn_Click;
+            btnLogin.Click += BtnLogin_Click;
 
             // Sự kiện nhấn Enter trong ô mật khẩu
             txtPassword.KeyDown += TxtPassword_KeyDown;
@@ -46,7 +47,7 @@ namespace GUI
             }
         }
 
-        private void BtnSignIn_Click(object sender, RoutedEventArgs e)
+        private void BtnLogin_Click(object sender, RoutedEventArgs e)
         {
             string username = txtUsername.Text;
             string password = txtPassword.Password;
@@ -100,7 +101,7 @@ namespace GUI
         {
             if (e.Key == Key.Enter)
             {
-                BtnSignIn_Click(sender, e);
+                BtnLogin_Click(sender, e);
             }
         }
 
@@ -125,9 +126,10 @@ namespace GUI
             Account account = new Account();
             account.Username = username;
             account.Password = password;
-
+           
             AccountAccess acAccess = new AccountAccess();
             string infor = acAccess.CheckLoginData(account);
+            this.ID_user = infor;
             return infor;
         }
 

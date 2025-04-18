@@ -63,8 +63,8 @@
                 </TextBlock>
             </StackPanel>
             <!-- Nút đăng nhập -->
-            <Button x:Name="btnSignIn"
-                Content="Sign in"
+            <Button x:Name="btnLogin"
+                Content="Login"
                 Height="50"
                 Width="200"
                 Background="#D6CFF5"
