@@ -178,10 +178,5 @@ namespace BLL
             }
             return result;
         }
-        public int CreateID_Customer()
-        {
-            int id = acAccess.Get_Quantily_Account_DATA() + 1;
-            return id;
-        }
     }
 }  
