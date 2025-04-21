@@ -47,6 +47,19 @@ namespace BLL
                     ResultACC[i] = methods[i](information[i]);
                 }
             }
+            int flag = 1;
+            for (int i = 0; i < ResultACC.Length; i++)
+            {
+                if(ResultACC[i] != "valid_true")
+                {
+                    flag = 0;
+                    break;
+                }
+            }
+            if(flag == 1)
+            {
+                acAccess.AddDataCustomer(customer, account);
+            }
             return ResultACC;
         }
         public static bool SendOTP(string recipientEmail, string otpCode)

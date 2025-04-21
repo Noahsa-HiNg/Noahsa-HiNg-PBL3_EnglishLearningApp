@@ -6,6 +6,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DTO;
+using System.Security.Cryptography;
+using System.Runtime.Remoting.Messaging;
+using System.Security.Policy;
+using System.Xml.Linq;
 namespace DAL
 {
     public class AccountAccess : DataBaseAccess
@@ -187,6 +191,140 @@ namespace DAL
             command.ExecuteNonQuery();
             return "Phone_updated_successfully.";
         }
+        public int CreateCusID()
+        {
+            SqlConnection sqlCon = SqlconnectionData.connnect();
+            if (sqlCon.State == ConnectionState.Closed)
+            {
+                sqlCon.Open();
+            }
+            SqlCommand command = new SqlCommand();
+            command.CommandType = CommandType.StoredProcedure;
+            command.CommandText = "CreateCusID";
+            //            CREATE PROCEDURE CreateCusID
+            //AS
+            //BEGIN
+            //    SELECT TOP 1 Customer_ID
+            //    FROM Customers
+            //    ORDER BY Customer_ID DESC;
+            //            END;
+            object result = command.ExecuteScalar();
+            int ID = Convert.ToInt32(result);
+            return ID;
+        }
+        public int CreateAccountID()
+        {
+            SqlConnection sqlCon = SqlconnectionData.connnect();
+            if (sqlCon.State == ConnectionState.Closed)
+            {
+                sqlCon.Open();
+            }
+            SqlCommand command = new SqlCommand();
+            command.CommandType = CommandType.StoredProcedure;
+            command.CommandText = "CreateAccountID";
+            //            CREATE PROCEDURE CreateCusID
+            //AS
+            //BEGIN
+            //    SELECT TOP 1 Account_ID
+            //    FROM Account
+            //    ORDER BY Account_ID DESC;
+            //            END;
+            object result = command.ExecuteScalar();
+            int ID = Convert.ToInt32(result);
+            return ID;
+        }
+        public string AddDataCustomer(Customer customer, Account account)
+        {
+            int CusID = CreateCusID();
+            int AccID = CreateAccountID();
+            DateTime Create_Date = DateTime.Now;
+            SqlConnection sqlCon = SqlconnectionData.connnect();
+            if (sqlCon.State == ConnectionState.Closed)
+            {
+                sqlCon.Open();
+            }
 
+            SqlTransaction transaction = sqlCon.BeginTransaction(); // Bắt đầu giao dịch
+
+            // 1. Thêm Account
+            SqlCommand accCmd = new SqlCommand("InsertAccount", sqlCon, transaction);
+            accCmd.CommandType = CommandType.StoredProcedure;
+            accCmd.Parameters.AddWithValue("@Account_ID", AccID);
+            //CREATE PROCEDURE InsertAccount
+            //    @Account_ID INT,
+            //    @username NVARCHAR(50),
+            //    @password NVARCHAR(255),
+            //    @avatar NVARCHAR(MAX),
+            //    @role NVARCHAR(20)
+            //AS
+            //BEGIN
+            //    INSERT INTO Account(
+            //        Account_ID,
+            //        username,
+            //        password,
+            //        avatar,
+            //        role
+            //    )
+            //    VALUES(
+            //        @Account_ID,
+            //        @username,
+            //        @password,
+            //        @avatar,
+            //        @role
+            //    );
+            //            END;
+            accCmd.Parameters.AddWithValue("@username", account.Username);
+            accCmd.Parameters.AddWithValue("@password", account.Password);
+            accCmd.Parameters.AddWithValue("@avatar", DBNull.Value); // avatar có thể null
+            accCmd.Parameters.AddWithValue("@role", account.Role);
+            accCmd.ExecuteNonQuery();
+
+            // 2. Thêm Customer
+            SqlCommand cusCmd = new SqlCommand("InsertCustomer", sqlCon, transaction);
+            
+            //            CREATE PROCEDURE InsertCustomer 
+            //    @Account_ID INT,
+            //    @Name NVARCHAR(100),
+            //    @Phone VARCHAR(20),
+            //    @Email NVARCHAR(100),
+            //    @Notification BIT,
+            //    @Created_Date DATETIME,
+            //AS
+            //BEGIN
+            //    INSERT INTO Customers(
+            //        Account_ID,
+            //        Name,
+            //        Phone,
+            //        Email,
+            //        Notification,
+            //        Created_Date,
+            //        Is_Deleted,
+            //        Updated_Date,
+            //        Deleted_At
+            //    )
+            //    VALUES(
+            //        @Account_ID,
+            //        @Name,
+            //        @Phone,
+            //        @Email,
+            //        @Notification,
+            //        @Created_Date,
+            //        0,
+            //        NULL,
+            //        NULL
+            //    );
+            //            END;
+            cusCmd.CommandType = CommandType.StoredProcedure;
+            cusCmd.Parameters.AddWithValue("@Account_ID", AccID);
+            cusCmd.Parameters.AddWithValue("@Name", customer.Name);
+            cusCmd.Parameters.AddWithValue("@Phone", customer.Phone);
+            cusCmd.Parameters.AddWithValue("@Email", customer.Email);
+            cusCmd.Parameters.AddWithValue("@Notification",1);
+            cusCmd.Parameters.AddWithValue("@Created_Date", Create_Date);
+            cusCmd.ExecuteNonQuery();
+            transaction.Commit();
+            return "Add_Success";
+
+        }
     }
 }
