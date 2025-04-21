@@ -115,29 +115,5 @@ namespace DAL
             command.Connection = sqlCon;
             return "Change_Permiss_Success";
         }
-        public int Get_Quantily_Editor_DATA()
-        {
-            int sl = 0;
-            SqlConnection sqlCon = SqlconnectionData.connnect();
-            if (sqlCon.State == ConnectionState.Closed)
-            {
-                sqlCon.Open();
-            }
-            SqlCommand command = new SqlCommand();
-            command.CommandType = CommandType.StoredProcedure;
-            command.CommandText = "Get_quantily_Editor";
-            command.Connection = sqlCon;
-            SqlDataReader reader = command.ExecuteReader();
-            if (reader.HasRows)
-            {
-                while (reader.Read())
-                {
-                    sl = reader.GetInt32(0);
-                }
-                reader.Close();
-                sqlCon.Close();
-            }
-            return sl;
-        }
     }
 }

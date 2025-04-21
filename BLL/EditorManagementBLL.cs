@@ -41,10 +41,5 @@ namespace BLL
         {
             return editorAccess.ChangeDataPermiss(editor);
         }
-        public int CreateID_Edior()
-        {
-            int id = editorAccess.Get_Quantily_Editor_DATA() + 1;
-            return id;
-        }
     }
 }

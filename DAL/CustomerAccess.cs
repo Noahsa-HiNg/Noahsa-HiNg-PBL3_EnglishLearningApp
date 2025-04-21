@@ -20,31 +20,6 @@ namespace DAL
         //    LockDataCus(customer);
         //}
         //// tuấn anh 
-        public int Get_Quantily_Customer_DATA()
-        {
-            int sl = 0;
-            SqlConnection sqlCon = SqlconnectionData.connnect();
-            if (sqlCon.State == ConnectionState.Closed)
-            {
-                sqlCon.Open();
-            }
-            SqlCommand command = new SqlCommand();
-            command.CommandType = CommandType.StoredProcedure;
-            command.CommandText = "Get_quantily_Customer";
-            command.Connection = sqlCon;
-            SqlDataReader reader = command.ExecuteReader();
-            if (reader.HasRows)
-            {
-                while (reader.Read())
-                {
-                    sl = reader.GetInt32(0);
-                }
-                reader.Close();
-                sqlCon.Close();
-            }
-            return sl;
-
-        }
         public string DeleteDataCus(Customer customer)
         {
             SqlConnection sqlCon = SqlconnectionData.connnect();

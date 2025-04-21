@@ -11,6 +11,7 @@ namespace BLL
     class CusManagementBLL:CusValidatorBLL
     {
         CustomerAccess cusaccess = new CustomerAccess();
+        AccountAccess acAccess = new AccountAccess();
         public string[] AddCustomer(Account account, Customer customer)
         {
             string[] ResultACC = new string[5];
@@ -27,6 +28,20 @@ namespace BLL
                     ResultACC[i] = methods[i](information[i]);
                 }
             }
+            int flag = 1;
+            for (int i = 0; i < ResultACC.Length; i++)
+            {
+                if (ResultACC[i] != "valid_true")
+                {
+                    flag = 0;
+                    break;
+                }
+            }
+            if (flag == 1)
+            {
+                acAccess.AddDataCustomer(customer, account);
+            }
+            return ResultACC;
             return ResultACC;
         }
         public string DeleteCustomer(Customer customer)
@@ -41,12 +56,6 @@ namespace BLL
         public (Customer,Account) ShowInforCus(Customer customer)
         {
             return cusaccess.ShowDataInforCus(customer.ID);
-        }
-        // tuấn anh 
-        public int CreateID_Customer()
-        {
-            int id = cusaccess.Get_Quantily_Customer_DATA() + 1;
-            return id;
         }
 
     }
