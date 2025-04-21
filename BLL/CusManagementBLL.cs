@@ -42,7 +42,6 @@ namespace BLL
                 acAccess.AddDataCustomer(customer, account);
             }
             return ResultACC;
-            return ResultACC;
         }
         public string DeleteCustomer(Customer customer)
         {

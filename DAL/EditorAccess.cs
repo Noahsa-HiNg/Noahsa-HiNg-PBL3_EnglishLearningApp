@@ -6,6 +6,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace DAL
 {
@@ -114,6 +115,180 @@ namespace DAL
             command.CommandText = "proc_logic";
             command.Connection = sqlCon;
             return "Change_Permiss_Success";
+        }
+        public int CreateEditorID()
+        {
+            SqlConnection sqlCon = SqlconnectionData.connnect();
+            if (sqlCon.State == ConnectionState.Closed)
+            {
+                sqlCon.Open();
+            }
+            SqlCommand command = new SqlCommand();
+            command.CommandType = CommandType.StoredProcedure;
+            command.CommandText = "CreateEditorID";
+            //            CREATE PROCEDURE CreateEditorID
+            //AS
+            //BEGIN
+            //    SELECT TOP 1 Editor_ID
+            //    FROM Editor 
+            //    ORDER BY Editor_ID DESC;
+            //            END;
+            object result = command.ExecuteScalar();
+            int ID = Convert.ToInt32(result);
+            return ID;
+        }
+        public int CreateAccountID()
+        {
+            SqlConnection sqlCon = SqlconnectionData.connnect();
+            if (sqlCon.State == ConnectionState.Closed)
+            {
+                sqlCon.Open();
+            }
+            SqlCommand command = new SqlCommand();
+            command.CommandType = CommandType.StoredProcedure;
+            command.CommandText = "CreateAccountID";
+            //            CREATE PROCEDURE CreateCusID
+            //AS
+            //BEGIN
+            //    SELECT TOP 1 Account_ID
+            //    FROM Account
+            //    ORDER BY Account_ID DESC;
+            //            END;
+            object result = command.ExecuteScalar();
+            int ID = Convert.ToInt32(result);
+            return ID;
+        }
+        public string AddDataEditor(Editor editor, Account account)
+        {
+            int EditID = CreateEditorID();
+            int AccID = CreateAccountID();
+            DateTime Create_Date = DateTime.Now;
+            SqlConnection sqlCon = SqlconnectionData.connnect();
+            if (sqlCon.State == ConnectionState.Closed)
+            {
+                sqlCon.Open();
+            }
+
+            SqlTransaction transaction = sqlCon.BeginTransaction(); // Bắt đầu giao dịch
+
+            // 1. Thêm Account
+            SqlCommand accCmd = new SqlCommand("InsertAccount", sqlCon, transaction);
+            accCmd.CommandType = CommandType.StoredProcedure;
+            accCmd.Parameters.AddWithValue("@Account_ID", AccID);
+            //CREATE PROCEDURE InsertAccount
+            //    @Account_ID INT,
+            //    @username NVARCHAR(50),
+            //    @password NVARCHAR(255),
+            //    @avatar NVARCHAR(MAX),
+            //    @role NVARCHAR(20)
+            //AS
+            //BEGIN
+            //    INSERT INTO Account(
+            //        Account_ID,
+            //        username,
+            //        password,
+            //        avatar,
+            //        role
+            //    )
+            //    VALUES(
+            //        @Account_ID,
+            //        @username,
+            //        @password,
+            //        @avatar,
+            //        @role
+            //    );
+            //            END;
+            accCmd.Parameters.AddWithValue("@username", account.Username);
+            accCmd.Parameters.AddWithValue("@password", account.Password);
+            accCmd.Parameters.AddWithValue("@avatar", DBNull.Value); // avatar có thể null
+            accCmd.Parameters.AddWithValue("@role", account.Role);
+            accCmd.ExecuteNonQuery();
+
+            // 2. Thêm Customer
+            SqlCommand cusCmd = new SqlCommand("InsertEditor", sqlCon, transaction);
+
+            //            CREATE PROCEDURE InsertEditor 
+            //    @Account_ID INT,
+            //    @Name NVARCHAR(100),
+            //    @Phone VARCHAR(20),
+            //    @Email NVARCHAR(100),
+            //    @Permission NVARCHAR(100),
+            //    @Status NVARCHAR(10)
+            //    @Created_Date DATETIME,
+            //AS
+            //BEGIN
+            //    INSERT INTO Editor(
+            //        Account_ID,
+            //        Name,
+            //        Phone,
+            //        Email,
+            //        Permission,
+            //        Status,
+            //        Created_Date,
+            //        Is_Deleted,
+            //        Updated_Date,
+            //        Deleted_At
+            //    )
+            //    VALUES(
+            //        @Account_ID,
+            //        @Name,
+            //        @Phone,
+            //        @Email,
+            //        @Permission
+            //        @Status
+            //        @Created_Date,
+            //        0,
+            //        NULL,
+            //        NULL
+            //    );
+            //            END;
+            cusCmd.CommandType = CommandType.StoredProcedure;
+            cusCmd.Parameters.AddWithValue("@Account_ID", AccID);
+            cusCmd.Parameters.AddWithValue("@Name", editor.Name);
+            cusCmd.Parameters.AddWithValue("@Phone", editor.Phone);
+            cusCmd.Parameters.AddWithValue("@Email", editor.Email);
+            cusCmd.Parameters.AddWithValue("@@Permission", editor.Permissions);
+            cusCmd.Parameters.AddWithValue("@Status", editor.Status);
+            cusCmd.Parameters.AddWithValue("@Created_Date", Create_Date);
+            cusCmd.ExecuteNonQuery();
+            transaction.Commit();
+            return "Add_Success";
+        }
+        public Editor[] ShowAllDataEditor()
+        {
+            List<Editor> editors = new List<Editor>();
+            SqlConnection sqlCon = SqlconnectionData.connnect();
+            if (sqlCon.State == ConnectionState.Closed)
+            {
+                sqlCon.Open();
+            }
+            SqlCommand command = new SqlCommand();
+            command.Connection = sqlCon;
+            command.CommandType = CommandType.StoredProcedure;
+            command.CommandText = "ShowAllEditor";
+            //            CREATE PROCEDURE ShowAllEditor
+            //AS
+            //BEGIN
+            //    SELECT
+            //        Editor_ID, 
+            //        Name
+            //    FROM
+            //        Editor
+            //    WHERE
+            //        Is_Deleted = 0
+            //END
+            SqlDataReader reader = command.ExecuteReader();
+
+            while (reader.Read())
+            {
+                Editor editor = new Editor();
+                editor.ID = reader["Editor_ID"].ToString();
+                editor.Name = reader["Name"].ToString();
+                editors.Add(editor);
+            }
+            reader.Close();
+            sqlCon.Close();
+            return editors.ToArray();
         }
     }
 }

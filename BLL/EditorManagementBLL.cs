@@ -26,6 +26,19 @@ namespace BLL
                     ResultACC[i] = methods[i](information[i]);
                 }
             }
+            int flag = 1;
+            for (int i = 0; i < ResultACC.Length; i++)
+            {
+                if (ResultACC[i] != "valid_true")
+                {
+                    flag = 0;
+                    break;
+                }
+            }
+            if (flag == 1)
+            {
+                editorAccess.AddDataEditor(editor, account);
+            }
             return ResultACC;
         }
         public string DeleteEditor(Editor editor)
@@ -40,6 +53,11 @@ namespace BLL
         public string ChangePermiss(Editor editor)
         {
             return editorAccess.ChangeDataPermiss(editor);
+        }
+        public Editor[] ShowAllEditor()
+        {
+            List<Editor> editors = new List<Editor>();
+            return editors.ToArray();
         }
     }
 }
