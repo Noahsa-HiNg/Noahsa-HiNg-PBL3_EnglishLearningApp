@@ -141,20 +141,19 @@ namespace DAL
 
             SqlCommand command = new SqlCommand("proc_deletelesson", sqlCon);
             command.CommandType = CommandType.StoredProcedure;
-            //procedure
-            //CREATE PROCEDURE proc_deletelesson
-            //    @Lesson_ID
+            //            CREATE PROCEDURE proc_deletelesson
+            //    @LessonID INT
             //AS
             //BEGIN
-            // Xóa trong các Table khác 
-            //DELETE FROM Coure_Category WHERE Lesson_ID = @Lesson_ID;
+            //    SET NOCOUNT ON;
 
-            //...................
-            //Xóa trong table Lesson 
-            //DELETE FROM Lesson WHERE Lesson_Id = @Lesson_ID;
-            //END
-            // Thêm tham số đầu vào cho stored procedure
-            command.Parameters.AddWithValue("@Lesson_ID", ID);
+            //            UPDATE Lesson
+            //    SET
+            //        Is_Deleted = 1,
+            //        Deleted_At = GETDATE()
+            //    WHERE Lesson_ID = @LessonID;
+            //            END;
+            command.Parameters.AddWithValue("@LessonID", ID);
 
             int rowsAffected = command.ExecuteNonQuery();
 
@@ -167,6 +166,108 @@ namespace DAL
                 return "Null_Lesson";
             }
             sqlCon.Close();
+        }
+        public List<Lesson> ShowAllDataLesson()
+        {
+            List<Lesson> lessons = new List<Lesson>();
+            SqlConnection sqlCon = SqlconnectionData.connnect();
+            if (sqlCon.State == ConnectionState.Closed)
+            {
+                sqlCon.Open();
+            }
+            SqlCommand command = new SqlCommand();
+            command.Connection = sqlCon;
+            command.CommandType = CommandType.StoredProcedure;
+            command.CommandText = "ShowAllLesson";
+            //            CREATE PROCEDURE ShowAllLesson
+            //AS
+            //BEGIN
+            //    SELECT
+            //        Lesson_ID, 
+            //        Name
+            //    FROM
+            //        Lesson
+            //    WHERE
+            //        Is_Deleted = 0
+            //END
+            SqlDataReader reader = command.ExecuteReader();
+
+            while (reader.Read())
+            {
+                Lesson lesson = new Lesson();
+                lesson.Lesson_ID = reader["Lesson_ID"].ToString();
+                lesson.Title = reader["Title"].ToString();
+                lessons.Add(lesson);
+            }
+            reader.Close();
+            sqlCon.Close();
+            return lessons;
+        }
+        public void RestoreDataLesson(Lesson lesson)
+        {
+            SqlConnection sqlCon = SqlconnectionData.connnect();
+            if (sqlCon.State == ConnectionState.Closed)
+            {
+                sqlCon.Open();
+            }
+
+            SqlCommand command = new SqlCommand();
+            command.CommandType = CommandType.StoredProcedure;
+            command.CommandText = "proc_restorelesson";
+            //            CREATE PROCEDURE proc_restorelesson
+            //    @LessonID INT
+            //AS
+            //BEGIN
+            //    SET NOCOUNT ON;
+
+            //            UPDATE Editor
+            //    SET
+            //        Is_Deleted = 0,
+            //        Deleted_At = NULL
+            //    WHERE Lesson_ID = @LessonID AND Is_Deleted = 1;
+            //            END;
+            command.Connection = sqlCon;
+            command.Parameters.AddWithValue("@LessonID", lesson.Lesson_ID);
+            command.ExecuteNonQuery();
+            sqlCon.Close();
+        }
+        public List<Lesson> ShowDataDeleteLesson()
+        {
+            List<Lesson> lessons = new List<Lesson>();
+            SqlConnection sqlCon = SqlconnectionData.connnect();
+            if (sqlCon.State == ConnectionState.Closed)
+            {
+                sqlCon.Open();
+            }
+            SqlCommand command = new SqlCommand();
+            command.Connection = sqlCon;
+            command.CommandType = CommandType.StoredProcedure;
+            command.CommandText = "ShowDeleteLesson";
+            //            CREATE PROCEDURE ShowDeleteLesson
+            //AS
+            //BEGIN
+            //    SELECT
+            //        Lesson_ID, 
+            //        Name,
+            //        Delete_At
+            //    FROM
+            //        Lesson
+            //    WHERE
+            //        Is_Deleted = 0
+            //END
+            SqlDataReader reader = command.ExecuteReader();
+
+            while (reader.Read())
+            {
+                Lesson lesson = new Lesson();
+                lesson.Lesson_ID = reader["Lesson_ID"].ToString();
+                lesson.Title = reader["Title"].ToString();
+                lesson.Delete_At = (DateTime)reader["Delete_At"];
+                lessons.Add(lesson);
+            }
+            reader.Close();
+            sqlCon.Close();
+            return lessons;
         }
     }
 }

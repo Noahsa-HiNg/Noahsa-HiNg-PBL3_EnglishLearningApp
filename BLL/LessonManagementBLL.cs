@@ -30,5 +30,22 @@ namespace BLL
             string result = lessonAccess.DeleteDataLesson(lesson.Lesson_ID);
             return result;
         }
+        public Lesson[] ShowAllLesson()
+        {
+            List<Lesson> lessons = new List<Lesson>();
+            lessons = lessonAccess.ShowAllDataLesson();
+            return lessons.ToArray();
+        }
+        public void RestoreLesson(Lesson lesson)
+        {
+            lessonAccess.RestoreDataLesson(lesson);
+        }
+        public Lesson[] ShowDeleteLesson()
+        {
+            List<Lesson> lessons = new List<Lesson>();
+            lessons = lessonAccess.ShowDataDeleteLesson();
+            return lessons.ToArray();
+        }
+ 
     }
 }

@@ -56,6 +56,21 @@ namespace BLL
         {
             return cusaccess.ShowDataInforCus(customer.ID);
         }
-
+        public Customer[] ShowAllCustomer()
+        {
+            List<Customer> customers = new List<Customer>();
+            customers = cusaccess.ShowAllDataCustomer();
+            return customers.ToArray();
+        }
+        public void RestorCustomer(Customer customer)
+        {
+            cusaccess.RestoreDataCustomer(customer);
+        }
+        public Customer[] ShowDeleteCustomer()
+        {
+            List<Customer> customers = new List<Customer>();
+            customers = cusaccess.ShowDataDeleteCustomer();
+            return customers.ToArray();
+        }
     }
 }
