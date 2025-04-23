@@ -42,6 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Class1.cs" />
+    <Compile Include="CourseManagementBLL.cs" />
     <Compile Include="CusManagementBLL.cs" />
     <Compile Include="CusValidatorBLL.cs" />
     <Compile Include="EditorManagementBLL.cs" />
