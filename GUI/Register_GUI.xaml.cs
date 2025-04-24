@@ -27,8 +27,8 @@ namespace GUI
         private readonly User_AccountManagementBLL _userBLL;
         private readonly UserDataValidatorBLL _userDataVal;
 
-        private readonly Uri checkIconUri = new Uri("C:\\Users\\Acer Tiger\\Noahsa-HiNg-PBL3_EnglishLearningApp\\GUI\\Images\\check.png");
-        private readonly Uri crossIconUri = new Uri("C:\\Users\\Acer Tiger\\Noahsa-HiNg-PBL3_EnglishLearningApp\\GUI\\Images\\delete.png");
+        private readonly Uri checkIconUri = new Uri("pack://application:,,,/Images/check.png");
+        private readonly Uri crossIconUri = new Uri("pack://application:,,,/Images/delete.png");
 
         public Register_GUI()
         {

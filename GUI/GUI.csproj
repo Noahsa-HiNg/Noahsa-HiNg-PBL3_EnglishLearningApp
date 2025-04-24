@@ -31,8 +31,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="Images\check.png" />
-    <Resource Include="Images\delete.png" />
+    <Resource Include="Images\check.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\delete.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
 
 </Project>
