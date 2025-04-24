@@ -55,6 +55,7 @@ namespace DAL
         public string CheckLoginData(Account account)
         {
             string ID_user = null;
+            bool Lock;
             SqlConnection sqlCon = SqlconnectionData.connnect();
             if (sqlCon.State == ConnectionState.Closed)
             {
@@ -72,13 +73,15 @@ namespace DAL
                 while (reader.Read())
                 {
                     ID_user = reader.GetString(0);
+                    Lock = reader.GetBoolean(5);
+                    if (Lock) return "LockedAccount";
                 }
                 reader.Close();
                 sqlCon.Close();
             }
             else
             {
-                return "taikhoanmatkhaukhongchinhxac";
+                return "UsenamePassworkFalt";
             }
             return ID_user;
 

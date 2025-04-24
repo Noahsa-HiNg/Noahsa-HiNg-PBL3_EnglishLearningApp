@@ -17,7 +17,7 @@ namespace BLL
             {
                 lessonAccess.AddDataLesson(lesson);
             }
-            return "Title_to-long";
+            return "Title_to_long";
 
         }
         public Lesson ShowLesson(Lesson lesson)
@@ -29,6 +29,36 @@ namespace BLL
         {
             string result = lessonAccess.DeleteDataLesson(lesson.Lesson_ID);
             return result;
+        }
+        public Lesson[] ShowAllLesson()
+        {
+            List<Lesson> lessons = new List<Lesson>();
+            lessons = lessonAccess.ShowAllDataLesson();
+            return lessons.ToArray();
+        }
+        public void RestoreLesson(Lesson lesson)
+        {
+            lessonAccess.RestoreDataLesson(lesson);
+        }
+        public Lesson[] ShowDeleteLesson()
+        {
+            List<Lesson> lessons = new List<Lesson>();
+            lessons = lessonAccess.ShowDataDeleteLesson();
+            return lessons.ToArray();
+        }
+        public void DeleteLesOfCoures(string CategoryID)
+        {
+            lessonAccess.DeleteLesOfCourse(CategoryID);
+        }
+        public Lesson[] ShowLesOfCourse(string CategoryID)
+        {
+            List<Lesson> lessons = new List<Lesson>();
+            lessons = lessonAccess.ShowDataLesOfCourse(CategoryID);
+            return lessons.ToArray();
+        } 
+        public void RestoreLesOfCourse(string CategoryId)
+        {
+            lessonAccess.RestoreLesOfCourse(CategoryId);
         }
     }
 }

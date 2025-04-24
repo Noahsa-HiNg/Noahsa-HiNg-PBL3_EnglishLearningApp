@@ -57,6 +57,17 @@ namespace BLL
         public Editor[] ShowAllEditor()
         {
             List<Editor> editors = new List<Editor>();
+            editors = editorAccess.ShowAllDataEditor();
+            return editors.ToArray();
+        }
+        public void RestoreEditor(Editor editor)
+        {
+            editorAccess.RestoreDataEditor(editor);
+        }
+        public Editor[] ShowDeleteEditor()
+        {
+            List<Editor> editors = new List<Editor>();
+            editors = editorAccess.ShowDataDeleteEditor();
             return editors.ToArray();
         }
     }

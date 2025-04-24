@@ -23,12 +23,18 @@ namespace DAL
             SqlCommand command = new SqlCommand();
             command.CommandType = CommandType.StoredProcedure;
             command.CommandText = "proc_delete_editor";
-            //CREATE PROCEDURE proc_delete_editor 
+            //            CREATE PROCEDURE proc_delete_editor 
             //    @EditorID INT
             //AS
             //BEGIN
-            //DELETE FROM Editor WHERE Editor_ID = @EditorID;
-            //END
+            //    SET NOCOUNT ON;
+
+            //            UPDATE Editor
+            //    SET
+            //        Is_Deleted = 1,
+            //        Deleted_At = GETDATE()
+            //    WHERE Editor_ID = @EditorID;
+            //            END;
             command.Connection = sqlCon;
             command.Parameters.AddWithValue("@EditorID", editor.Account_ID);
             command.ExecuteNonQuery();
@@ -254,7 +260,7 @@ namespace DAL
             transaction.Commit();
             return "Add_Success";
         }
-        public Editor[] ShowAllDataEditor()
+        public List<Editor> ShowAllDataEditor()
         {
             List<Editor> editors = new List<Editor>();
             SqlConnection sqlCon = SqlconnectionData.connnect();
@@ -288,7 +294,73 @@ namespace DAL
             }
             reader.Close();
             sqlCon.Close();
-            return editors.ToArray();
+            return editors;
+        }
+        public void RestoreDataEditor(Editor editor)
+        {
+            SqlConnection sqlCon = SqlconnectionData.connnect();
+            if (sqlCon.State == ConnectionState.Closed)
+            {
+                sqlCon.Open();
+            }
+
+            SqlCommand command = new SqlCommand();
+            command.CommandType = CommandType.StoredProcedure;
+            command.CommandText = "proc_restoreditor";
+            //            CREATE PROCEDURE proc_restoreditor
+            //    @EditorID INT
+            //AS
+            //BEGIN
+            //    SET NOCOUNT ON;
+
+            //            UPDATE Editor
+            //    SET
+            //        Is_Deleted = 0,
+            //        Deleted_At = NULL
+            //    WHERE Editor_ID = @EditorID AND Is_Deleted = 1;
+            //            END;
+            command.Connection = sqlCon;
+            command.Parameters.AddWithValue("@EditorID", editor.ID);
+            command.ExecuteNonQuery();
+            sqlCon.Close();
+        }
+        public List<Editor> ShowDataDeleteEditor()
+        {
+            List<Editor> editors = new List<Editor>();
+            SqlConnection sqlCon = SqlconnectionData.connnect();
+            if (sqlCon.State == ConnectionState.Closed)
+            {
+                sqlCon.Open();
+            }
+            SqlCommand command = new SqlCommand();
+            command.Connection = sqlCon;
+            command.CommandType = CommandType.StoredProcedure;
+            command.CommandText = "ShowDeleteEditor";
+            //            CREATE PROCEDURE ShowDeleteEditor
+            //AS
+            //BEGIN
+            //    SELECT
+            //        Editor_ID, 
+            //        Name,
+            //        Deleted_At
+            //    FROM
+            //        Editor
+            //    WHERE
+            //        Is_Deleted = 1
+            //END
+            SqlDataReader reader = command.ExecuteReader();
+
+            while (reader.Read())
+            {
+                Editor editor = new Editor();
+                editor.ID = reader["Editor_ID"].ToString();
+                editor.Name = reader["Name"].ToString();
+                editor.Delete_At = (DateTime)reader["Delete_At"];
+                editors.Add(editor);
+            }
+            reader.Close();
+            sqlCon.Close();
+            return editors;
         }
     }
 }
