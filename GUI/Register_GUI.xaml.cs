@@ -25,6 +25,7 @@ namespace GUI
         private bool isVisiblePass = false;
         private bool isVisibleRePass = false;
         private readonly User_AccountManagementBLL _userBLL;
+        private readonly UserDataValidatorBLL _userDataVal;
 
         private readonly Uri checkIconUri = new Uri("C:\\Users\\Acer Tiger\\Noahsa-HiNg-PBL3_EnglishLearningApp\\GUI\\Images\\check.png");
         private readonly Uri crossIconUri = new Uri("C:\\Users\\Acer Tiger\\Noahsa-HiNg-PBL3_EnglishLearningApp\\GUI\\Images\\delete.png");
@@ -32,6 +33,8 @@ namespace GUI
         public Register_GUI()
         {
             InitializeComponent();
+            _userBLL = new User_AccountManagementBLL();
+            _userDataVal = new UserDataValidatorBLL();
         }
         private void toggleButton_Click_1(object sender, RoutedEventArgs e)
         {
