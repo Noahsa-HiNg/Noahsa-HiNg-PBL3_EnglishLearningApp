@@ -17,4 +17,22 @@
     <ProjectReference Include="..\DTO\DTO.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <EditorConfigFiles Remove="C:\Users\Acer Tiger\Noahsa-HiNg-PBL3_EnglishLearningApp\GUI\.editorconfig" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Images\check.png" />
+    <None Remove="Images\delete.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="C:\Users\Acer Tiger\Noahsa-HiNg-PBL3_EnglishLearningApp\GUI\.editorconfig" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Images\check.png" />
+    <Resource Include="Images\delete.png" />
+  </ItemGroup>
+
 </Project>

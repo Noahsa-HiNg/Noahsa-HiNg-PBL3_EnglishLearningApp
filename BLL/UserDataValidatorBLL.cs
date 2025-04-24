@@ -107,6 +107,11 @@ namespace BLL
             }
             return "valid_true";
         }
+
+        public bool isExitedMail(string mail)
+        {
+            return acAccess.CheckEmailData(mail);
+        }
     }
 }
 

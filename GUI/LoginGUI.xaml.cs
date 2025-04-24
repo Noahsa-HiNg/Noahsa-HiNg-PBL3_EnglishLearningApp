@@ -138,9 +138,9 @@ namespace GUI
         private void SaveLoginInfo(string username, string password)
         {
             // Lưu thông tin đăng nhập (có thể sử dụng Properties.Settings hoặc file config)
-            Properties.Settings.Default.Username = username;
-            Properties.Settings.Default.Password = password;
-            Properties.Settings.Default.Save();
+            //Properties.Settings.Default.Username = username;
+            //Properties.Settings.Default.Password = password;
+            //Properties.Settings.Default.Save();
         }
     }
 }

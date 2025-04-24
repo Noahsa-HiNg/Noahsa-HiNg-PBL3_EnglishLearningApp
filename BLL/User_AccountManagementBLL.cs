@@ -31,20 +31,17 @@ namespace BLL
             string info = acAccess.CheckLoginData(account);
             return info;
         }
-        public string[] SignUp(Account account, Customer customer)
+        public bool SignUp(Account account, Customer customer)
         {
-            string[] ResultACC = new string[5];
+            bool ResultACC = true;
             string[] information = { account.Username, account.Password, customer.Name, customer.Phone, customer.Email };
             MyDelegate[] methods = { ChecklogicUsername, CheckLogicPassWord, ChecklogicName, ChecklogicPhone, ChecklogicEmail };
-            for (int i = 0; i < ResultACC.Length; i++)
-            {
-                ResultACC[i] = "valid_true";
-            }
+
             for (int i = 0; i < information.Length; i++)
             {
                 if (methods[i](information[i]) != "valid_true")
                 {
-                    ResultACC[i] = methods[i](information[i]);
+                    ResultACC = ResultACC && true;
                 }
             }
             return ResultACC;

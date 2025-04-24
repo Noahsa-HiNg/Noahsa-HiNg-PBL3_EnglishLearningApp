@@ -15,7 +15,7 @@ namespace DTO
         public DateTime Created_Date { get; set; }
         public DateTime Updated_Date { get; set; }
 
-        public Customer() { }
+        public Customer() {}
 
         public Customer(string id, string accountId, string name, string phone, string email, bool notificationEnable, DateTime createdDate, DateTime updatedDate)
             : base(id, accountId, name, phone, email)
@@ -24,6 +24,7 @@ namespace DTO
             Created_Date = createdDate;
             Updated_Date = updatedDate;
         }
-    }
+
+    }   
 }
 
