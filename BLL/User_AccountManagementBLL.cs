@@ -18,17 +18,17 @@ namespace BLL
     public class User_AccountManagementBLL : UserDataValidatorBLL
     {
         AccountAccess acAccess = new AccountAccess();
-        public string CheckLogin(Account account)
+        public string CheckLogin(string username, string password)
         {
-            if (account.Username == "")
+            if (username == "")
             {
                 return "NULL_Username";
             }
-            if (account.Password == "")
+            if (password == "")
             {
                 return "NULL_Password";
             }
-            string info = acAccess.CheckLoginData(account);
+            string info = acAccess.CheckLoginData(username, password);
             return info;
         }
         public bool SignUp(Account account, Customer customer)

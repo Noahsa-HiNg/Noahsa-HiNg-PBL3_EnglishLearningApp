@@ -52,7 +52,7 @@ namespace DAL
         //    return quantily;
         //}
         ////
-        public string CheckLoginData(Account account)
+        public string CheckLoginData(string username, string password)
         {
             string ID_user = null;
             bool Lock;
@@ -65,8 +65,8 @@ namespace DAL
             command.CommandType = CommandType.StoredProcedure;
             command.CommandText = "CheckLoginData"; //proc_logic là tên procedure trong database
             command.Connection = sqlCon;
-            command.Parameters.AddWithValue("@user", account.Username);
-            command.Parameters.AddWithValue("@pass", account.Password);
+            command.Parameters.AddWithValue("@user", username);
+            command.Parameters.AddWithValue("@pass", password);
             SqlDataReader reader = command.ExecuteReader();
             if (reader.HasRows)
             {
