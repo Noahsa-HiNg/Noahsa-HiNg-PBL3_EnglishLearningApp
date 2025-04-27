@@ -72,7 +72,7 @@ namespace DAL
             {
                 while (reader.Read())
                 {
-                    ID_user = reader.GetString(0);
+                    ID_user =reader.GetInt32(0).ToString();
                     Lock = reader.GetBoolean(5);
                     if (Lock) return "LockedAccount";
                 }
