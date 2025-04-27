@@ -208,7 +208,7 @@ namespace GUI
 
             if(item == "UsenamePassworkFalt")
             {
-                txtMessage.Text = "Đăng nhập thất bại.";
+                txtMessage.Text = "Tên đăng nhập hoặc mật khẩu chưa đúng.";
                 txtMessage.Visibility = Visibility.Visible;
                 return;
             }

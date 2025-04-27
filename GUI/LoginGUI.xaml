@@ -96,7 +96,7 @@
             <!-- Nút đăng nhập -->
             <Button x:Name="btnLogin"
                     Margin="0,5,0,0"
-                    Content="Login"
+                    Content="Sign In"
                     Height="50"
                     Width="200"
                     Background="#D6CFF5"
