@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:GUI"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
+        ResizeMode="CanMinimize"
         Title="RegisterGUI" Height="679" Width="489">
     <Grid Margin="20" >
         <StackPanel VerticalAlignment="Center">
@@ -198,12 +199,12 @@
             <Button x:Name="btnSignUp"
                Content="Sign Up"
                Height="36"
-               Width="140"
+               Width="100"
                Background="#D6CFF5"
                Foreground="Black"
                FontWeight="SemiBold"
                BorderThickness="0"
-               Cursor="Hand" Click="btnSignUp_Click"/>
+               Cursor="Hand" Click="BtnSignUp_Click"/>
             <!-- Nút đăng nhập -->
             <StackPanel Orientation="Horizontal" 
                    HorizontalAlignment="Center"

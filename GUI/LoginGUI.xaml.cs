@@ -215,7 +215,24 @@ namespace GUI
 
             txtMessage.Text = "Đăng nhập thành công!";
             txtMessage.Visibility = Visibility.Visible;
-            txtMessage.Foreground = Brushes.Green; 
+            txtMessage.Foreground = Brushes.Green;
+
+            //Remember me
+            if (chkRememberMe.IsChecked == true)
+            {
+                // Người dùng muốn ghi nhớ
+                Properties.Settings.Default.RememberMe = true;
+                Properties.Settings.Default.LastUsername = username;
+            }
+            else
+            {
+                // Người dùng không muốn ghi nhớ
+                Properties.Settings.Default.RememberMe = false;
+                Properties.Settings.Default.LastUsername = ""; // Xóa tên đăng nhập cũ nếu có
+            }
+
+            // Lưu các thay đổi vào tệp cấu hình
+            Properties.Settings.Default.Save();
         }
     }
 }

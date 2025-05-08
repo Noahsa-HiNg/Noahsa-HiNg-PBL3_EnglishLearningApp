@@ -7,6 +7,9 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
+        <StackPanel Margin="0,136,0,204" Background="#FFC9C1F1">
+            <Button Content="Button" Height="38" Width="102" Click="Button_Click" Cursor="Hand" Foreground="White" Background="#FF691FC6" FontFamily="Times New Roman" FontSize="15" ForceCursor="True"/>
+        </StackPanel>
 
     </Grid>
 </Window>
