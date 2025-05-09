@@ -9,7 +9,7 @@ public static class EmailSender
     private const string SmtpServer = "smtp.gmail.com";
     private const int SmtpPort = 587; // Port chuẩn cho TLS/STARTTLS
     private const string SenderEmail = "duypanda273@gmail.com"; // Địa chỉ Gmail của bạn
-    private const string SenderPassword = "Duy@273224605"; // Mật khẩu ứng dụng của Gmail
+    private const string SenderPassword = "mfsi sojz kgyk xjli"; // Mật khẩu ứng dụng của Gmail
 
     public static async Task SendOtpEmailAsync(string recipientEmail, string otpCode)
     {
