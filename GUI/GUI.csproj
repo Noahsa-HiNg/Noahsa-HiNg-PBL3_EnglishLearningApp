@@ -9,7 +9,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="System.Data.SqlClient" Version="4.8.5" />
+    <PackageReference Include="FontAwesome" Version="4.7.0" />
+    <PackageReference Include="FontAwesome.WPF" Version="4.7.0.9" />
+    <PackageReference Include="System.Data.SqlClient" Version="4.9.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -22,8 +24,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="Images\bell_icon.png" />
+    <None Remove="Images\cart_icon2.png" />
     <None Remove="Images\check.png" />
     <None Remove="Images\delete.png" />
+    <None Remove="Images\search_icon.jpg" />
+    <None Remove="Images\user_icon.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -31,12 +37,16 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Images\bell_icon.png" />
+    <Resource Include="Images\cart_icon2.png" />
     <Resource Include="Images\check.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Images\delete.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Images\search_icon.jpg" />
+    <Resource Include="Images\user_icon.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -45,12 +55,21 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Update="Settings1.Designer.cs">
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings1.settings</DependentUpon>
+    </Compile>
   </ItemGroup>
 
   <ItemGroup>
     <None Update="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <None Update="Settings1.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings1.Designer.cs</LastGenOutput>
     </None>
   </ItemGroup>
 

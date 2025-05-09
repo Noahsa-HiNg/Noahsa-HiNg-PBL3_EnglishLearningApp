@@ -18,7 +18,7 @@ namespace GUI
     {
         public MainWindow()
         {
-            
+
             LoginGUI loginGUI = new LoginGUI();
             loginGUI.Show();
             this.Close();
@@ -27,6 +27,46 @@ namespace GUI
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void SearchBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
+
+        private void ClearSearchButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void TextBlock_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+
+        }
+
+        private void Shoping_card_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Bell_icon_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void UserProfile_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void MyCourse_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+
+        }
+
+        private void Mylesson_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
 
         }
