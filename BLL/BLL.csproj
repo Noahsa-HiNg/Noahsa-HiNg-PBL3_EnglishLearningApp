@@ -31,6 +31,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.13.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -50,7 +53,10 @@
     <Compile Include="EmailSender.cs" />
     <Compile Include="LessonManagementBLL.cs" />
     <Compile Include="LessonValidator.cs" />
+    <Compile Include="MomoPayment.cs" />
+    <Compile Include="MomoSecurity.cs" />
     <Compile Include="OtpHelper.cs" />
+    <Compile Include="PaymentRequestcs.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UserDataValidatorBLL.cs" />
     <Compile Include="User_AccountManagementBLL.cs" />
@@ -64,6 +70,9 @@
       <Project>{9e768692-d95b-4418-a875-ce08b8253706}</Project>
       <Name>DTO</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
