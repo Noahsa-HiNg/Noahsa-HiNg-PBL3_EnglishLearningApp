@@ -6,14 +6,19 @@
         xmlns:local="clr-namespace:GUI"
         xmlns:fa="clr-namespace:FontAwesome.WPF;assembly=FontAwesome.WPF"
         mc:Ignorable="d"
-        Title="Course Platform" Height="600" Width="900"
+        Height="1000 " Width="900" WindowState="Maximized"
         WindowStartupLocation="CenterScreen">
 
     <Window.Resources>
         <!-- Định nghĩa FontAwesome -->
-        <FontFamily x:Key="FontAwesome">pack://application:,,,/FontAwesome.WPF;component/Fonts/#Font Awesome 6 Free</FontFamily>
+        <ResourceDictionary>
+            <FontFamily x:Key="FontAwesome">pack://application:,,,/FontAwesome.WPF;component/Fonts/#Font Awesome 6 Free</FontFamily>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Resource/MainWindowResource.xaml"></ResourceDictionary>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+     
     </Window.Resources>
-
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -38,7 +43,7 @@
                            FontSize="20" FontWeight="Bold" Foreground="#111827" />
 
                 <!-- Search Bar -->
-                <Border Style="{StaticResource CourseCardStyle}" Grid.Column="1">
+                <Border  Grid.Column="1">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto"/>
@@ -70,10 +75,28 @@
                         Click="Bell_icon_Click">
                     <fa:ImageAwesome Icon="Bell" Width="20" Height="20" />
                 </Button>
-                <Button Grid.Column="6" x:Name="UserProfile" Margin="10,0,20,0" Background="Transparent" BorderThickness="0"
-                        Click="UserProfile_Click">
+                <!--User button-->
+                <ToggleButton Grid.Column="6" x:Name="UserProfile" Margin="10,0,20,0" Background="Transparent" BorderThickness="0"
+                      Click="UserProfile_Click" IsChecked="{Binding Ischecked}">
                     <fa:ImageAwesome Icon="User" Width="20" Height="20" />
-                </Button>
+                </ToggleButton>
+
+                <!-- Popup Menu -->
+                <Popup x:Name="UserProfileMenu" PlacementTarget="{Binding ElementName=UserProfile}" IsOpen="{Binding IsChecked, ElementName=UserProfile}">
+                    <Border Background="White" BorderBrush="Gray" BorderThickness="1" Padding="10">
+                        <StackPanel>
+                            <TextBlock Text="{Binding User.Name}" FontWeight="Bold" Margin="0,0,0,10"/>
+                            <ListBox>
+                                <ListBoxItem>Thông tin cá nhân</ListBoxItem>
+                                <ListBoxItem>Khóa học đã mua</ListBoxItem>
+                                <ListBoxItem>Quản lý tài khoản</ListBoxItem>
+                                <ListBoxItem>Đổi tài khoản</ListBoxItem>
+                                <ListBoxItem>Đăng xuất</ListBoxItem>
+                            </ListBox>
+                        </StackPanel>
+                    </Border>
+                </Popup>
+
             </Grid>
         </Border>
 
