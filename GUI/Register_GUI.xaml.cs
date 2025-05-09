@@ -74,7 +74,7 @@ namespace GUI
             isVisibleRePass = !isVisibleRePass;
         }
 
-        private void btnSignUp_Click(object sender, RoutedEventArgs e)
+        private async void BtnSignUp_Click(object sender, RoutedEventArgs e)
         { 
             //Lấy dữ liệu từ các controls
             string username = txtUsername.Text.Trim();
@@ -126,9 +126,66 @@ namespace GUI
 
                 if (registrationResult)
                 {
-                    MessageBox.Show("Đăng ký thành công!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
-                    // Có thể đóng cửa sổ đăng ký hoặc chuyển sang màn hình đăng nhập
-                    // this.Close();
+                    string generatedOtp = OtpHelper.GenerateOtp();
+                    string userEmail = email; // Lấy email của người dùng
+                    DateTime otpCreationTime = DateTime.Now; // Ghi lại thời gian tạo OTP
+
+                    // Lưu generatedOtp và otpCreationTime vào nơi nào đó để kiểm tra sau (ví dụ: trong bộ nhớ tạm cho phiên đăng ký, hoặc tốt hơn là cơ sở dữ liệu)
+                    // Ví dụ đơn giản (chỉ dùng tạm trong demo):
+                    // var pendingVerification = new { Otp = generatedOtp, CreationTime = otpCreationTime, Email = userEmail };
+                    // Lưu pendingVerification vào một danh sách tạm thời
+
+                    try
+                    {
+                        // Gửi email OTP
+                        await EmailSender.SendOtpEmailAsync(userEmail, generatedOtp);
+
+                        // Sau khi gửi thành công, hiển thị cửa sổ nhập OTP
+                        OTPEntry_GUI otpWindow = new OTPEntry_GUI(generatedOtp, otpCreationTime.AddMinutes(5)); // Truyền mã và thời gian hết hạn
+
+                        // Đăng ký xử lý sự kiện gửi lại
+                        otpWindow.ResendOtpRequested += (s, e) =>
+                        {
+                            // Logic để tạo mã OTP mới, gửi lại email
+                            string newOtp = OtpHelper.GenerateOtp();
+                            DateTime newExpiration = DateTime.Now.AddMinutes(5);
+                            // Lưu newOtp và newExpiration
+                            // Gửi email OTP mới
+                            // Cập nhật lại thông tin OTP trong cửa sổ OTP
+                            ((OTPEntry_GUI)s).UpdateOtpInfo(newOtp, newExpiration); // Cần thêm phương thức này vào OtpEntryWindow
+                            MessageBox.Show("Mã OTP mới đã được gửi.", "Gửi lại thành công", MessageBoxButton.OK, MessageBoxImage.Information);
+                        };
+
+
+                        // Hiển thị cửa sổ OTP dưới dạng Dialog
+                        bool? result = otpWindow.ShowDialog();
+
+                        // Kiểm tra kết quả khi cửa sổ đóng
+                        if (result == true)
+                        {
+                            // OTP đã được xác nhận thành công
+                            MessageBox.Show("Đăng ký hoàn tất và xác thực email thành công!", "Thành công");
+                            // Thực hiện hành động tiếp theo, ví dụ: chuyển đến trang chủ
+                        }
+                        else
+                        {
+                            // Xác nhận OTP thất bại (người dùng đóng cửa sổ hoặc mã hết hạn)
+                            MessageBox.Show("Xác thực email không thành công.", "Thất bại");
+                            // Có thể yêu cầu người dùng thử lại hoặc thực hiện hành động khác
+                        }
+                        MessageBox.Show("Đăng ký thành công!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
+                        // Có thể đóng cửa sổ đăng ký hoặc chuyển sang màn hình đăng nhập
+                        // this.Close();
+
+                    }
+                    catch (Exception ex)
+                    {
+                        // Xử lý lỗi nếu gửi email thất bại
+                        MessageBox.Show($"Không thể gửi mã xác nhận. Vui lòng kiểm tra lại địa chỉ email hoặc thử lại sau. Chi tiết lỗi: {ex.Message}", "Lỗi gửi email", MessageBoxButton.OK, MessageBoxImage.Error);
+                        // Có thể không hiển thị cửa sổ OTP nếu gửi email lỗi
+                    }
+
+                    
                 }
                 else
                 {
