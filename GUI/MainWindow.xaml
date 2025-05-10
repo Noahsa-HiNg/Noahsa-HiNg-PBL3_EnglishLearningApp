@@ -20,6 +20,7 @@
      
     </Window.Resources>
     <Grid>
+    <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
@@ -99,20 +100,10 @@
 
             </Grid>
         </Border>
+        
 
-        <Grid Grid.Row="1" Margin="20">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
-
-            <!-- Page Title -->
-            <TextBlock Grid.Row="0" Text="Khóa học" FontSize="28" FontWeight="Bold" Margin="0,0,0,20" Foreground="#111827"/>
-
-            <!-- Courses Grid -->
-            <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
-                <WrapPanel x:Name="CoursesPanel" Orientation="Horizontal"/>
-            </ScrollViewer>
-        </Grid>
     </Grid>
+        <Frame x:Name="Main" Margin="0,61,0,0"/>
+    </Grid>
+
 </Window>

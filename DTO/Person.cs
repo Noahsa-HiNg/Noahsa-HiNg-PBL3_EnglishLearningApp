@@ -12,7 +12,7 @@ namespace DTO
         public string Name { get; set; }
         public string Phone { get; set; }
         public string Email { get; set; }
-
+        
         public Person() { }
 
         public Person(string id,string accountId, string name, string phone, string email)

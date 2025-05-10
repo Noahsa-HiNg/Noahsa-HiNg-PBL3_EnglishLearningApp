@@ -8,7 +8,9 @@ namespace GUI
     {
         public MainWindow()
         {
+            
             InitializeComponent();
+            Main.Content = new ListCourse();
         }
 
         // Xử lý sự kiện thay đổi trong ô tìm kiếm
