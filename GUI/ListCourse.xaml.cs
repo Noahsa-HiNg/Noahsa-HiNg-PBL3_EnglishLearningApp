@@ -12,7 +12,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-
+using DTO;
+using BLL;
+using System.Collections.ObjectModel;
 namespace GUI
 {
     /// <summary>
@@ -20,9 +22,14 @@ namespace GUI
     /// </summary>
     public partial class ListCourse : Page
     {
+        public ObservableCollection<CourseCategory> Courses { get; set; }
+        
         public ListCourse()
         {
+            
+           
             InitializeComponent();
+            
         }
     }
 }

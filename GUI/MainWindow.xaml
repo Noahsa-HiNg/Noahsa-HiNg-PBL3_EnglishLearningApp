@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:GUI"
         xmlns:fa="clr-namespace:FontAwesome.WPF;assembly=FontAwesome.WPF"
         mc:Ignorable="d"
+        DataContext="{StaticResource MainVM}"
         Height="1000 " Width="900" WindowState="Maximized"
         WindowStartupLocation="CenterScreen">
 
