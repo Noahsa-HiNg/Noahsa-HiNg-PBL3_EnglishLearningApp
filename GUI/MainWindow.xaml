@@ -7,9 +7,10 @@
         xmlns:fa="clr-namespace:FontAwesome.WPF;assembly=FontAwesome.WPF"
         mc:Ignorable="d"
         DataContext="{StaticResource MainVM}"
+        xmlns:uc="clr-namespace:GUI.UserControlGUI"
         Height="1000 " Width="900" WindowState="Maximized"
         WindowStartupLocation="CenterScreen">
-
+    
     <Window.Resources>
         <!-- Định nghĩa FontAwesome -->
         <ResourceDictionary>
@@ -26,84 +27,10 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-
-        <!-- Navigation Bar -->
-        <Border Grid.Row="0" Background="#D6CFF5" BorderThickness="0,0,0,1" BorderBrush="#DDDDDD">
-            <Grid Height="60">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="Auto"/>
-                </Grid.ColumnDefinitions>
-
-                <!-- Logo -->
-                <TextBlock Grid.Column="0" Text="Tên ứng dụng" Margin="20,0,20,0" VerticalAlignment="Center" 
-                           FontSize="20" FontWeight="Bold" Foreground="#111827" />
-
-                <!-- Search Bar -->
-                <Border  Grid.Column="1">
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto"/>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="Auto"/>
-                        </Grid.ColumnDefinitions>
-
-                        <fa:ImageAwesome Icon="Search" Width="20" Height="20" Margin="10,0,5,0" VerticalAlignment="Center"/>
-                        <TextBox Grid.Column="1" x:Name="SearchBox" BorderThickness="0" Padding="10" 
-                                 VerticalAlignment="Center" FontSize="14" TextChanged="SearchBox_TextChanged"/>
-                        <Button Grid.Column="2" x:Name="ClearSearchButton" Content="×" FontSize="16" 
-                                BorderThickness="0" Background="Transparent" Margin="5,0,10,0"
-                                Visibility="Collapsed" Click="ClearSearchButton_Click"/>
-                    </Grid>
-                </Border>
-
-                <!-- Navigation Links -->
-                <TextBlock Grid.Column="2" Text="Khóa học của bạn" x:Name="MyCourse" Margin="10,0,10,0" VerticalAlignment="Center" 
-                           MouseLeftButtonDown="MyCourse_MouseLeftButtonDown" Cursor="Hand" FontSize="16" Foreground="#111827" FontWeight="DemiBold" />
-                <TextBlock Grid.Column="3" Text="Bài học" x:Name="Mylesson" Margin="10,0,10,0" VerticalAlignment="Center"
-                           MouseLeftButtonDown="Mylesson_MouseLeftButtonDown" Cursor="Hand" FontSize="16" Foreground="#111827" FontWeight="DemiBold"/>
-
-                <!-- Icons -->
-                <Button Grid.Column="4" x:Name="Shoping_card" Margin="10,0,10,0" Background="Transparent" BorderThickness="0"
-                        Click="Shoping_card_Click">
-                    <fa:ImageAwesome Icon="CartPlus" Width="20" Height="20" />
-                </Button>
-                <Button Grid.Column="5" x:Name="Bell_icon" Margin="10,0,10,0" Background="Transparent" BorderThickness="0"
-                        Click="Bell_icon_Click">
-                    <fa:ImageAwesome Icon="Bell" Width="20" Height="20" />
-                </Button>
-                <!--User button-->
-                <ToggleButton Grid.Column="6" x:Name="UserProfile" Margin="10,0,20,0" Background="Transparent" BorderThickness="0"
-                      Click="UserProfile_Click" IsChecked="{Binding Ischecked}">
-                    <fa:ImageAwesome Icon="User" Width="20" Height="20" />
-                </ToggleButton>
-
-                <!-- Popup Menu -->
-                <Popup x:Name="UserProfileMenu" PlacementTarget="{Binding ElementName=UserProfile}" IsOpen="{Binding IsChecked, ElementName=UserProfile}">
-                    <Border Background="White" BorderBrush="Gray" BorderThickness="1" Padding="10">
-                        <StackPanel>
-                            <TextBlock Text="{Binding User.Name}" FontWeight="Bold" Margin="0,0,0,10"/>
-                            <ListBox>
-                                <ListBoxItem>Thông tin cá nhân</ListBoxItem>
-                                <ListBoxItem>Khóa học đã mua</ListBoxItem>
-                                <ListBoxItem>Quản lý tài khoản</ListBoxItem>
-                                <ListBoxItem>Đổi tài khoản</ListBoxItem>
-                                <ListBoxItem>Đăng xuất</ListBoxItem>
-                            </ListBox>
-                        </StackPanel>
-                    </Border>
-                </Popup>
-
+            <Grid Grid.Row="0">
+                <uc:ControlBarUC></uc:ControlBarUC>
             </Grid>
-        </Border>
-        
-
-    </Grid>
+        </Grid>
         <Frame x:Name="Main" Margin="0,61,0,0"/>
     </Grid>
 
