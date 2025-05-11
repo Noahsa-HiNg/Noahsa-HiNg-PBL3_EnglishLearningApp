@@ -28,6 +28,14 @@ namespace GUI
             InitializeComponent();
             this.DataContext = new ListCourseViewModel();              
         }
-        
+        private void NavigateToCourseDetail_Click(object sender, System.Windows.RoutedEventArgs e)
+        {
+            // Điều hướng đến trang CourseDetailPage
+            if (sender is Button button && button.Tag is CourseCategory course)
+            {
+                // Điều hướng đến CourseDetailPage và truyền dữ liệu
+                this.NavigationService?.Navigate(new CourseDetailPage(course));
+            }
+        }
     }
 }

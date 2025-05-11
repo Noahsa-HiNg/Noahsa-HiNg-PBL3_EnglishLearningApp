@@ -7,10 +7,10 @@
      d:DesignHeight="600" d:DesignWidth="800">
    <!-- DesignHeight/Width for preview, not runtime -->
 
-   <Page.Resources>
+   <!--<Page.Resources>
        <Style x:Key="AccentButtonStyle" TargetType="Button">
            <Setter Property="Background" Value="#1E90FF"/>
-           <!-- DodgerBlue -->
+           --><!-- DodgerBlue --><!--
            <Setter Property="Foreground" Value="White"/>
            <Setter Property="BorderThickness" Value="0"/>
            <Setter Property="Padding" Value="10,5"/>
@@ -30,11 +30,11 @@
            <Style.Triggers>
                <Trigger Property="IsMouseOver" Value="True">
                    <Setter Property="Background" Value="#4682B4"/>
-                   <!-- SteelBlue -->
+                   --><!-- SteelBlue --><!--
                </Trigger>
                <Trigger Property="IsPressed" Value="True">
                    <Setter Property="Background" Value="#0000CD"/>
-                   <!-- MediumBlue -->
+                   --><!-- MediumBlue --><!--
                </Trigger>
            </Style.Triggers>
        </Style>
@@ -43,20 +43,20 @@
    <Grid Margin="20">
        <Grid.RowDefinitions>
            <RowDefinition Height="Auto"/>
-           <!-- Personal Info Header -->
+           --><!-- Personal Info Header --><!--
            <RowDefinition Height="Auto"/>
-           <!-- Personal Info Fields -->
+           --><!-- Personal Info Fields --><!--
            <RowDefinition Height="Auto"/>
-           <!-- Change Password Header -->
+           --><!-- Change Password Header --><!--
            <RowDefinition Height="Auto"/>
-           <!-- Change Password Fields -->
+           --><!-- Change Password Fields --><!--
            <RowDefinition Height="Auto"/>
-           <!-- Buttons -->
+           --><!-- Buttons --><!--
            <RowDefinition Height="*"/>
-           <!-- Spacer -->
+           --><!-- Spacer --><!--
        </Grid.RowDefinitions>
 
-       <!-- Personal Information Section -->
+       --><!-- Personal Information Section --><!--
        <TextBlock Grid.Row="0" Text="Thông tin cá nhân" FontSize="24" FontWeight="Bold" Margin="0,0,0,15"/>
 
        <Grid Grid.Row="1" Margin="0,0,0,30">
@@ -69,17 +69,17 @@
                <RowDefinition Height="Auto"/>
            </Grid.RowDefinitions>
 
-           <!-- Row 0 -->
+           --><!-- Row 0 --><!--
            <StackPanel Grid.Row="0" Grid.Column="0" Margin="0,0,20,10">
                <TextBlock Text="Tên đăng nhập" FontWeight="SemiBold" Margin="0,0,0,5"/>
                <TextBox x:Name="UsernameTextBox" IsReadOnly="True" Padding="5"/>
            </StackPanel>
            <StackPanel Grid.Row="0" Grid.Column="1" Margin="0,0,0,10">
                <TextBlock Text="Email" FontWeight="SemiBold" Margin="0,0,0,5"/>
-               <TextBox x:Name="EmailTextBox" IsReadOnly="True" Padding="5" TextChanged="EmailTextBox_TextChanged"/>
+               <TextBox x:Name="EmailTextBox" IsReadOnly="True" Padding="5"/>
            </StackPanel>
 
-           <!-- Row 1 -->
+           --><!-- Row 1 --><!--
            <StackPanel Grid.Row="1" Grid.Column="0" Margin="0,0,20,10">
                <TextBlock Text="Họ tên" FontWeight="SemiBold" Margin="0,0,0,5"/>
                <TextBox x:Name="FullNameTextBox" Padding="5"/>
@@ -90,7 +90,7 @@
            </StackPanel>
        </Grid>
 
-       <!-- Change Password Section -->
+       --><!-- Change Password Section --><!--
        <TextBlock Grid.Row="2" Text="Đổi mật khẩu" FontSize="24" FontWeight="Bold" Margin="0,0,0,15"/>
 
        <Grid Grid.Row="3" Margin="0,0,0,30">
@@ -104,13 +104,13 @@
                <RowDefinition Height="Auto"/>
            </Grid.RowDefinitions>
 
-           <!-- Row 0 -->
+           --><!-- Row 0 --><!--
            <StackPanel Grid.Row="0" Grid.Column="0" Margin="0,0,20,10">
                <TextBlock Text="Mật khẩu hiện tại" FontWeight="SemiBold" Margin="0,0,0,5"/>
                <PasswordBox x:Name="CurrentPasswordBox" Padding="5"/>
            </StackPanel>
 
-           <!-- Row 1 -->
+           --><!-- Row 1 --><!--
            <StackPanel Grid.Row="1" Grid.Column="0" Margin="0,0,20,10">
                <TextBlock Text="Mật khẩu mới" FontWeight="SemiBold" Margin="0,0,0,5"/>
                <PasswordBox x:Name="NewPasswordBox" Padding="5"/>
@@ -121,10 +121,10 @@
            </StackPanel>
        </Grid>
 
-       <!-- Buttons -->
+       --><!-- Buttons --><!--
        <StackPanel Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,0,20">
            <Button Content="← Quay lại" Padding="10,5" Margin="0,0,10,0" Click="BackButton_Click"/>
            <Button Content="Lưu thay đổi" Padding="10,5" Style="{StaticResource AccentButtonStyle}" Click="SaveButton_Click"/>
        </StackPanel>
-   </Grid>
+   </Grid>-->
 </Page>
