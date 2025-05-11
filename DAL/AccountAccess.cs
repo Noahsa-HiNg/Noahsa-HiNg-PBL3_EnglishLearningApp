@@ -297,6 +297,36 @@ namespace DAL
             sqlCon.Close();
             return account;
         }
+        public DTO.Account ShowDataInforAccountByUsername(string username)
+        {
+            // ... logic của bạn để lấy thông tin tài khoản ...
+            // Ví dụ:
+            SqlConnection sqlCon = SqlconnectionData.connnect();
+            if (sqlCon.State == ConnectionState.Closed)
+            {
+                sqlCon.Open();
+            }
+
+            SqlCommand command = new SqlCommand("proc_show_account_by_username", sqlCon); // Kiểm tra tên SP của bạn
+            command.CommandType = CommandType.StoredProcedure;
+            command.Parameters.AddWithValue("@Username", username);
+
+            SqlDataReader reader = command.ExecuteReader();
+            DTO.Account account = null;
+            if (reader.Read())
+            {
+                account = new DTO.Account
+                {
+                    ID = reader["Account_ID"].ToString(),
+                    Username = reader["Username"].ToString(),
+                    Password = reader["Password"].ToString()
+                    // Ánh xạ các thuộc tính khác
+                };
+            }
+            reader.Close();
+            sqlCon.Close();
+            return account;
+        }
 
     }
 }

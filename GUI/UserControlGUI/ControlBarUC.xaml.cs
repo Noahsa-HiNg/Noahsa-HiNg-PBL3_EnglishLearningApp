@@ -52,7 +52,8 @@ namespace GUI.UserControlGUI
 
         private void UserProfile_Click(object sender, RoutedEventArgs e)
         {
-            NavigateToPage(new UserProfilePage());
+            // Wrap UserProfilePage in a Frame-compatible Page
+            NavigateToPage(new PageWrapper(new UserProfilePage()));
         }
 
         private void ManagerCustomer_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -68,6 +69,14 @@ namespace GUI.UserControlGUI
         private void Statistics_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             NavigateToPage(new StatisticsPage());
+        }
+    }
+    public class PageWrapper : Page
+    {
+        public PageWrapper(System.Windows.Window window)
+        {
+            this.Content = window.Content;
+            window.Content = null;
         }
     }
 }
