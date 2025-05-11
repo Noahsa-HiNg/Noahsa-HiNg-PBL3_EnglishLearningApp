@@ -28,5 +28,6 @@ namespace GUI
             InitializeComponent();
             this.DataContext = new ListCourseViewModel();              
         }
+        
     }
 }
