@@ -19,19 +19,21 @@
                 <ResourceDictionary Source="Resource/MainWindowResource.xaml"></ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
-     
+
     </Window.Resources>
     <Grid>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="100"/>
+            <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
             <Grid Grid.Row="0">
                 <uc:ControlBarUC></uc:ControlBarUC>
             </Grid>
         </Grid>
-        <Frame x:Name="Main" Margin="0,61,0,0"/>
+        <Grid Grid.Row="1" Margin="0 100 0 100">
+            <Frame x:Name="Main" Margin="0,61,0,0" />
+        </Grid>
     </Grid>
 
 </Window>

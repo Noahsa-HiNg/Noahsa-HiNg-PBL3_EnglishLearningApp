@@ -12,17 +12,18 @@ namespace GUI.ViewModel
         public bool IsLoggedIn { get; set; } = false;
         public MainViewModel() {
             LoginGUI login = new LoginGUI();
-            if(!IsLoggedIn)
-            {
-                IsLoggedIn = true;
-                login.ShowDialog();
-            }
-            else
-            {
-                // Load the main application window
-                MainWindow mainWindow = new MainWindow();
-                mainWindow.Show();
-            }
+
+            //if(!IsLoggedIn)
+            //{
+            //    IsLoggedIn = true;
+            //    login.ShowDialog();
+            //}
+            //else
+            //{
+            //    // Load the main application window
+            //    MainWindow mainWindow = new MainWindow();
+            //    mainWindow.Show();
+            //}
             
         }
     }

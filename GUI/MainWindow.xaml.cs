@@ -11,6 +11,11 @@ namespace GUI
             
             InitializeComponent();
             Main.Content = new ListCourse();
-        } 
+        }
+
+        private void Main_Navigated(object sender, System.Windows.Navigation.NavigationEventArgs e)
+        {
+
+        }
     }
 }
