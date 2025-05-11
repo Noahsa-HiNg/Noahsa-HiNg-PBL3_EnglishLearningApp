@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Diagnostics;
 using System.Xml.Linq;
+using System.Reflection;
 
 namespace DAL
 {
@@ -232,10 +233,157 @@ namespace DAL
             sqlCon.Close();
             return courseCategories;
         }
-        public List<CourseCategory> ShowBuyCourse()
+        public List<CourseCategory> ShowBuyCourseData(Account account)
         {
-            return ShowAllDataCourse();
+            List<CourseCategory> courseCategories = new List<CourseCategory>();
+            SqlConnection sqlCon = SqlconnectionData.connnect();
+            if (sqlCon.State == ConnectionState.Closed)
+            {
+                sqlCon.Open();
+            }
+
+            // Create the SQL command for the stored procedure
+            SqlCommand command = new SqlCommand();
+            command.Connection = sqlCon;
+            command.CommandType = CommandType.StoredProcedure;
+            command.CommandText = "ShowBuyCourse";
+            //            CREATE PROCEDURE ShowBuyCourse
+            //    @AccountID INT
+            //AS
+            //BEGIN
+            //    SELECT
+            //        c.Category_ID,
+            //        c.Name,
+            //        c.Description,
+            //        c.Price,
+            //        c.Created_By,
+            //        c.Created_By_Role,
+            //        c.Created_Date,
+            //        c.Updated_By,
+            //        c.Updated_By_Role,
+            //        c.Updated_Date,
+            //        c.Is_Deleted,
+            //        c.Deleted_At
+            //    FROM
+            //        Course_Category c
+            //    INNER JOIN
+            //        Payment p ON c.Category_ID = p.Category_ID
+            //    WHERE
+            //        p.Account_ID = @AccountID
+            //    AND
+            //        p.Is_Deleted = 0
+            //END
+
+            // Add parameters for the stored procedure (if necessary, e.g., account ID)
+            command.Parameters.AddWithValue("@AccountID", account.ID);
+
+            // Execute the query and read the data
+            SqlDataReader reader = command.ExecuteReader();
+            while (reader.Read())
+            {
+                // Create a new CourseCategory object and populate its properties
+                CourseCategory category = new CourseCategory
+                {
+                    Category_ID = reader.GetOrdinal("Category_ID").ToString(),
+                    Name = reader.GetString(reader.GetOrdinal("Name")),
+                    Description = reader.IsDBNull(reader.GetOrdinal("Description")) ? null : reader.GetString(reader.GetOrdinal("Description")),
+                    Price = reader.GetDecimal(reader.GetOrdinal("Price")),
+                    Created_By = reader.GetOrdinal("Created_By").ToString(),
+                    Created_By_Role = reader.GetString(reader.GetOrdinal("Created_By_Role")),
+                    Created_Date = reader.GetDateTime(reader.GetOrdinal("Created_Date")),
+                    Update_By = reader.GetOrdinal("Updated_By").ToString(),
+                    Update_By_Role = reader.GetString(reader.GetOrdinal("Updated_By_Role")),
+                    Updated_Date = reader.GetDateTime(reader.GetOrdinal("Updated_Date")),
+                    Is_Delete = reader.GetBoolean(reader.GetOrdinal("Is_Deleted")),
+                    Delete_At = reader["Deleted_At"] != DBNull.Value ? Convert.ToDateTime(reader["Deleted_At"]) : DateTime.MinValue,
+                };
+
+                // Add the populated object to the list
+                courseCategories.Add(category);
+            }
+
+            // Close the reader and connection
+            reader.Close();
+            sqlCon.Close();
+
+            return courseCategories;
         }
+        public List<CourseCategory> ShowUnBoughtCoursesData(Account account)
+        {
+            List<CourseCategory> courseCategories = new List<CourseCategory>();
+            SqlConnection sqlCon = SqlconnectionData.connnect();
+            if (sqlCon.State == ConnectionState.Closed)
+            {
+                sqlCon.Open();
+            }
+
+            // Create the SQL command for the stored procedure
+            SqlCommand command = new SqlCommand();
+            command.Connection = sqlCon;
+            command.CommandType = CommandType.StoredProcedure;
+            command.CommandText = "ShowUnBoughtCourses";
+            //            CREATE PROCEDURE ShowUnBoughtCourses
+            //    @AccountID INT
+            //AS
+            //BEGIN
+            //    SELECT
+            //        c.Category_ID,
+            //        c.Name,
+            //        c.Description,
+            //        c.Price,
+            //        c.Created_By,
+            //        c.Created_By_Role,
+            //        c.Created_Date,
+            //        c.Updated_By,
+            //        c.Updated_By_Role,
+            //        c.Updated_Date,
+            //        c.Is_Deleted,
+            //        c.Deleted_At
+            //    FROM
+            //        Course_Category c
+            //    WHERE NOT EXISTS(
+            //        SELECT 1
+            //        FROM Payment p
+            //        WHERE p.Account_ID = @AccountID AND p.Category_ID = c.Category_ID
+            //    )
+            //    AND c.Is_Deleted = 0-- Make sure that the course is not marked as deleted
+            //END
+
+            // Add parameters for the stored procedure (e.g., account ID)
+            command.Parameters.AddWithValue("@AccountID", account.ID);
+
+            // Execute the query and read the data
+            SqlDataReader reader = command.ExecuteReader();
+            while (reader.Read())
+            {
+                // Create a new CourseCategory object and populate its properties
+                CourseCategory category = new CourseCategory
+                {
+                    Category_ID = reader.GetOrdinal("Category_ID").ToString(),
+                    Name = reader.GetString(reader.GetOrdinal("Name")),
+                    Description = reader.IsDBNull(reader.GetOrdinal("Description")) ? null : reader.GetString(reader.GetOrdinal("Description")),
+                    Price = reader.GetDecimal(reader.GetOrdinal("Price")),
+                    Created_By = reader.GetOrdinal("Created_By").ToString(),
+                    Created_By_Role = reader.GetString(reader.GetOrdinal("Created_By_Role")),
+                    Created_Date = reader.GetDateTime(reader.GetOrdinal("Created_Date")),
+                    Update_By = reader.GetOrdinal("Updated_By").ToString(),
+                    Update_By_Role = reader.GetString(reader.GetOrdinal("Updated_By_Role")),
+                    Updated_Date = reader.GetDateTime(reader.GetOrdinal("Updated_Date")),
+                    Is_Delete = reader.GetBoolean(reader.GetOrdinal("Is_Deleted")),
+                    Delete_At = reader["Deleted_At"] != DBNull.Value ? Convert.ToDateTime(reader["Deleted_At"]) : DateTime.MinValue,
+                };
+
+                // Add the populated object to the list
+                courseCategories.Add(category);
+            }
+
+            // Close the reader and connection
+            reader.Close();
+            sqlCon.Close();
+
+            return courseCategories;
+        }
+
 
     }
 }
