@@ -23,6 +23,7 @@ namespace GUI.UserControlGUI
     {
 
         public ControlBarViewModel Viewmodel { get; set; }
+        public event Action<Type> PageChanged;
         public ControlBarUC()
         {
 
@@ -37,84 +38,58 @@ namespace GUI.UserControlGUI
             if (UserSession.Instance.Role != "Editor" && UserSession.Instance.Role != "Admin")
             {
                 // Hide admin-only buttons
-                ManagerCustomer.Visibility = Visibility.Collapsed;            
+                ManagerCustomer.Visibility = Visibility.Collapsed;
             }
         }
-        
-        private void NavigateToPage(Page page)
-        {
-            // Tìm Frame trong MainWindow và điều hướng đến Page
-            var mainWindow = Application.Current.MainWindow as MainWindow;
-            mainWindow?.MainFrame.Navigate(page);
-        }
+
         private void Home_Click(object sender, RoutedEventArgs e)
         {
-            NavigateToPage(new ListCourse());
+            PageChanged?.Invoke(typeof(ListCourse)); // Gửi thông báo để hiển thị ListCourse
         }
+
         private void Shoping_card_Click(object sender, RoutedEventArgs e)
         {
-            NavigateToPage(new ShoppingCartPage());
+            PageChanged?.Invoke(typeof(ShoppingCartPage)); // Gửi thông báo để hiển thị ShoppingCartPage
         }
+
         private void MyCourse_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            NavigateToPage(new MyCoursePage());
+            PageChanged?.Invoke(typeof(MyCoursePage)); // Gửi thông báo để hiển thị MyCoursePage
         }
+
         private void Bell_icon_Click(object sender, RoutedEventArgs e)
         {
-            NavigateToPage(new NotificationPage());
+            PageChanged?.Invoke(typeof(NotificationPage)); // Gửi thông báo để hiển thị NotificationPage
         }
 
         private void UserProfile_Click(object sender, RoutedEventArgs e)
         {
-            NavigateToPage(new UserProfilePage());
+            PageChanged?.Invoke(typeof(UserProfilePage)); // Gửi thông báo để hiển thị UserProfilePage
         }
 
         private void ManagerCustomer_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            NavigateToPage(new ManagerCustomerPage());
+
+        }
+
+        private void MyCourse_MouseLeftButtonDown_1(object sender, MouseButtonEventArgs e)
+        {
+
         }
 
         private void ManagerEditor_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            NavigateToPage(new ManagerEditorPage());
+
         }
 
         private void Statistics_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            NavigateToPage(new StatisticsPage());
+
         }
 
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-            TextBox searchBox = sender as TextBox;
-            if (searchBox != null)
-            {
-                string searchText = searchBox.Text;
-                FindCourseByText(searchText);
-            }
-        }
-        private void FindCourseByText(string searchText)
-        {
-            // Lấy MainWindow và MainFrame
-            var mainWindow = Application.Current.MainWindow as MainWindow;
-            var currentPage = mainWindow?.MainFrame.Content;
 
-            if (currentPage is ListCourse listCoursePage)
-            {
-                
-                
-            }
-            else if (currentPage is ShoppingCartPage shoppingCartPage)
-            {
-                
-                
-            }
-            else if (currentPage is MyCoursePage myCoursePage)
-            {
-                // Gọi phương thức tìm kiếm của MyCoursePage
-                
-            }
-            
         }
     }
-}
+    }
