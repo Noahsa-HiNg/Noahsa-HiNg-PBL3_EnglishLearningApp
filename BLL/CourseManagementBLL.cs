@@ -52,6 +52,5 @@ namespace BLL
 
             return filtered;
         }
-        public List<CourseCategory> Cou
     }
 }

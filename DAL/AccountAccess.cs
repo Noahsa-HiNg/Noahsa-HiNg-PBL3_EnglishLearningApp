@@ -290,15 +290,13 @@ namespace DAL
                 account.Username = reader["Username"].ToString();
                 account.Password = reader["Password"].ToString();
                 account.Role = reader["Role"].ToString();
-                account.Status = Convert.ToBoolean(reader["Status"]);
+                account.Status = Convert.ToInt32(reader["Status"]);
                 // Thêm các thuộc tính khác nếu có
             }
-
             reader.Close();
             sqlCon.Close();
             return account;
         }
 
     }
-}
 }
