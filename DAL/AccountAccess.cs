@@ -296,6 +296,161 @@ namespace DAL
             sqlCon.Close();
             return account;
         }
+        public object GetUserByAccountIDData(string accountID)
+        {
+            object user = null;
+
+            // Kết nối cơ sở dữ liệu
+            SqlConnection sqlCon = SqlconnectionData.connnect();
+            if (sqlCon.State == ConnectionState.Closed)
+            {
+                sqlCon.Open();
+            }
+
+            // Truy vấn tài khoản từ cơ sở dữ liệu dựa trên AccountID
+            SqlCommand cmd = new SqlCommand("SELECT Account_ID, role FROM Account WHERE Account_ID = @AccountID", sqlCon);
+            cmd.Parameters.AddWithValue("@AccountID", accountID);
+
+            SqlDataReader reader = cmd.ExecuteReader();
+
+            // Nếu tìm thấy tài khoản
+            if (reader.Read())
+            {
+                string role = reader.GetString(reader.GetOrdinal("role"));
+
+                // Dựa vào Role, tạo đối tượng phù hợp
+                if (role == "Customer")
+                {
+                    user = GetCustomerByAccountID(accountID);
+                }
+                else if (role == "Editor")
+                {
+                    user = GetEditorByAccountID(accountID);
+                }
+                else if (role == "Administrator")
+                {
+                    user = GetAdministratorByAccountID(accountID);
+                }
+            }
+
+            // Đóng kết nối và reader
+            reader.Close();
+            sqlCon.Close();
+
+            return user;
+        }
+
+        // Hàm lấy thông tin Customer
+        private Customer GetCustomerByAccountID(string accountID)
+        {
+            Customer customer = null;
+
+            SqlConnection sqlCon = SqlconnectionData.connnect();
+            if (sqlCon.State == ConnectionState.Closed)
+            {
+                sqlCon.Open();
+            }
+
+            SqlCommand cmd = new SqlCommand("SELECT * FROM Customer WHERE Account_ID = @AccountID", sqlCon);
+            cmd.Parameters.AddWithValue("@AccountID", accountID);
+
+            SqlDataReader reader = cmd.ExecuteReader();
+
+            if (reader.Read())
+            {
+                customer = new Customer
+                {
+                    ID = reader.GetString(reader.GetOrdinal("Customer_ID")),
+                    Account_ID = reader.GetString(reader.GetOrdinal("Account_ID")),
+                    Name = reader.GetString(reader.GetOrdinal("Name")),
+                    Phone = reader.GetString(reader.GetOrdinal("Phone")),
+                    Email = reader.GetString(reader.GetOrdinal("Email")),
+                    Notification_Enable = reader.GetBoolean(reader.GetOrdinal("Notification_Enabled")),
+                    Created_Date = reader.GetDateTime(reader.GetOrdinal("Created_Date")),
+                    Updated_Date = reader.GetDateTime(reader.GetOrdinal("Updated_Date")),
+                    Is_Delete = reader.GetBoolean(reader.GetOrdinal("Is_Deleted")),
+                    Delete_At = reader["Deleted_At"] != DBNull.Value ? Convert.ToDateTime(reader["Deleted_At"]) : DateTime.MinValue
+                };
+            }
+
+            reader.Close();
+            sqlCon.Close();
+
+            return customer;
+        }
+
+        // Hàm lấy thông tin Editor
+        private Editor GetEditorByAccountID(string accountID)
+        {
+            Editor editor = null;
+
+            SqlConnection sqlCon = SqlconnectionData.connnect();
+            if (sqlCon.State == ConnectionState.Closed)
+            {
+                sqlCon.Open();
+            }
+
+            SqlCommand cmd = new SqlCommand("SELECT * FROM Editor WHERE Account_ID = @AccountID", sqlCon);
+            cmd.Parameters.AddWithValue("@AccountID", accountID);
+
+            SqlDataReader reader = cmd.ExecuteReader();
+
+            if (reader.Read())
+            {
+                editor = new Editor
+                {
+                    ID = reader.GetString(reader.GetOrdinal("Editor_ID")),
+                    Account_ID = reader.GetString(reader.GetOrdinal("Account_ID")),
+                    Name = reader.GetString(reader.GetOrdinal("Name")),
+                    Phone = reader.GetString(reader.GetOrdinal("Phone")),
+                    Email = reader.GetString(reader.GetOrdinal("Email")),
+                    Permissions = reader.GetString(reader.GetOrdinal("Permission")),
+                    Status = reader.GetString(reader.GetOrdinal("Status")),
+                    Created_Date = reader.GetDateTime(reader.GetOrdinal("Created_Date")),
+                    Updated_Date = reader.GetDateTime(reader.GetOrdinal("Updated_Date")),
+                    Is_Delete = reader.GetBoolean(reader.GetOrdinal("Is_Deleted")),
+                    Delete_At = reader["Deleted_At"] != DBNull.Value ? Convert.ToDateTime(reader["Deleted_At"]) : DateTime.MinValue
+                };
+            }
+            reader.Close();
+            sqlCon.Close();
+            return editor;
+        }
+
+        // Hàm lấy thông tin Administrator
+        private Administrator GetAdministratorByAccountID(string accountID)
+        {
+            Administrator administrator = null;
+
+            SqlConnection sqlCon = SqlconnectionData.connnect();
+            if (sqlCon.State == ConnectionState.Closed)
+            {
+                sqlCon.Open();
+            }
+
+            SqlCommand cmd = new SqlCommand("SELECT * FROM Administrator WHERE Account_ID = @AccountID", sqlCon);
+            cmd.Parameters.AddWithValue("@AccountID", accountID);
+
+            SqlDataReader reader = cmd.ExecuteReader();
+
+            if (reader.Read())
+            {
+                administrator = new Administrator
+                {
+                    ID = reader.GetString(reader.GetOrdinal("Admin_ID")),
+                    Account_ID = reader.GetString(reader.GetOrdinal("Account_ID")),
+                    Name = reader.GetString(reader.GetOrdinal("Name")),
+                    Phone = reader.GetString(reader.GetOrdinal("Phone")),
+                    Email = reader.GetString(reader.GetOrdinal("Email")),
+                
+                };
+            }
+
+            reader.Close();
+            sqlCon.Close();
+
+            return administrator;
+        }
 
     }
 }

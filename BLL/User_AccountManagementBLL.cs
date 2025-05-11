@@ -171,5 +171,10 @@ namespace BLL
             Account account = acAccess.FindAccountData(accountID);
             return account;
         }
+        public object GetUserByAccountID(string accountID)
+        {
+            object user = acAccess.GetUserByAccountIDData(accountID);
+            return user;
+        }
     }
 }  
