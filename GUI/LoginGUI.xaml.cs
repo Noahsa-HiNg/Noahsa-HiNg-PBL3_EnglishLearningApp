@@ -197,7 +197,7 @@ namespace GUI
                 txtMessage.Visibility = Visibility.Visible;
                 return;
             }
-
+            
             string item = _userBLL.CheckLogin(username, password);
             if (item == "LockedAccount")
             {

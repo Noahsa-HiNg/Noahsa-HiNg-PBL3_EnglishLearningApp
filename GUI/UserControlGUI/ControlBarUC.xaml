@@ -30,7 +30,7 @@
                     </Button>
                     <Button x:Name="Home" Margin="2,0,10,0" Background="Transparent" BorderThickness="0"
                         Click="Home_Click">
-                        <materialDesign:PackIcon Kind="Home" Width="20" Height="25"/>
+                    <materialDesign:PackIcon Kind="Home" Width="20" Height="25"/>
                     </Button>
                 </StackPanel>
     <StackPanel
