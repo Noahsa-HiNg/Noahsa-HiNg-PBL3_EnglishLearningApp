@@ -13,7 +13,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using DTO;
-
+using BLL;
+using GUI.ViewModel;
 namespace GUI
 {
     /// <summary>
@@ -24,7 +25,17 @@ namespace GUI
         public CourseDetailPage(CourseCategory course)
         {
             InitializeComponent();
-            this.DataContext = course; // Gán dữ liệu của Course vào DataContext
+            
+            this.DataContext = new ListLessonViewModel(course); // Gán dữ liệu của Course vào DataContext
+        }
+        private void NavigateToLessonDetail_Click(object sender, System.Windows.RoutedEventArgs e)
+        {
+            // Điều hướng đến trang CourseDetailPage
+            if (sender is Button button && button.Tag is Lesson lessons)
+            {
+                // Điều hướng đến CourseDetailPage và truyền dữ liệu
+                this.NavigationService?.Navigate(new LessonDetailPage(lessons));
+            }
         }
     }
 }

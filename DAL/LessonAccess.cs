@@ -286,18 +286,18 @@ namespace DAL
             command.Connection = sqlCon;
             command.CommandType = CommandType.StoredProcedure;
             command.CommandText = "ShowLesOfCourse";
-            //            CREATE PROCEDURE ShowLesOfCourse
-            //    @CategoryID INT
-            //AS
-            //BEGIN
-            //    SELECT
-            //        Lesson_ID, 
-            //        Title
-            //    FROM
-            //        Lesson
-            //    WHERE
-            //        Is_Deleted = 0 AND Category_ID = @CategoryID;
-            //END
+//            CREATE PROCEDURE ShowLesOfCourse
+//    @CategoryID INT
+//AS
+//            BEGIN
+//                SELECT
+//                    Lesson_ID, 
+//                    Title
+//                FROM
+//                    Lesson
+//                WHERE
+//                    Is_Deleted = 0 AND Category_ID = @CategoryID;
+//            END
             command.Parameters.AddWithValue("@CategoryID", CategoryID);
             SqlDataReader reader = command.ExecuteReader();
 
