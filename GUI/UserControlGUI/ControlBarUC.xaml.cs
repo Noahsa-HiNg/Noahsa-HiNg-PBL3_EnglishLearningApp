@@ -40,6 +40,7 @@ namespace GUI.UserControlGUI
                 ManagerCustomer.Visibility = Visibility.Collapsed;            
             }
         }
+        
         private void NavigateToPage(Page page)
         {
             // Tìm Frame trong MainWindow và điều hướng đến Page
@@ -81,6 +82,39 @@ namespace GUI.UserControlGUI
         private void Statistics_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             NavigateToPage(new StatisticsPage());
+        }
+
+        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            TextBox searchBox = sender as TextBox;
+            if (searchBox != null)
+            {
+                string searchText = searchBox.Text;
+                FindCourseByText(searchText);
+            }
+        }
+        private void FindCourseByText(string searchText)
+        {
+            // Lấy MainWindow và MainFrame
+            var mainWindow = Application.Current.MainWindow as MainWindow;
+            var currentPage = mainWindow?.MainFrame.Content;
+
+            if (currentPage is ListCourse listCoursePage)
+            {
+                
+                
+            }
+            else if (currentPage is ShoppingCartPage shoppingCartPage)
+            {
+                
+                
+            }
+            else if (currentPage is MyCoursePage myCoursePage)
+            {
+                // Gọi phương thức tìm kiếm của MyCoursePage
+                
+            }
+            
         }
     }
 }
