@@ -1,19 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using DTO;
 using BLL;
-using System.Collections.ObjectModel;
-using System.Windows.Input;
+using DTO;
 
 namespace GUI.ViewModel
 {
-    class ListCourseViewModel
+    internal class ShoppingCartCourseViewModel
     {
         public ObservableCollection<CourseCategory> Courses { get; set; }
-        public ListCourseViewModel()
+        public ShoppingCartCourseViewModel()
         {
             CourseManagementBLL courseManagementBLL = new CourseManagementBLL();
             CourseCategory[] courseCategories = courseManagementBLL.ShowAllCourse();
