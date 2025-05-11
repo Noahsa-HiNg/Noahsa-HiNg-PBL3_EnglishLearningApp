@@ -15,7 +15,10 @@ namespace GUI.ViewModel
         public ShoppingCartCourseViewModel()
         {
             CourseManagementBLL courseManagementBLL = new CourseManagementBLL();
-            CourseCategory[] courseCategories = courseManagementBLL.ShowAllCourse();
+            Account account = new Account();
+            User_AccountManagementBLL user_AccountManagementBLL = new User_AccountManagementBLL();
+            account = user_AccountManagementBLL.FindAccount(UserSession.Instance.ID);
+            List<CourseCategory> courseCategories = courseManagementBLL.ShowUnBoughtCourse(account);
             Courses = new ObservableCollection<CourseCategory>(courseCategories);
         }
     }

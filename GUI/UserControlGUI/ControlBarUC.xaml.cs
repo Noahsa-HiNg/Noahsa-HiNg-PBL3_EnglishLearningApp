@@ -23,23 +23,36 @@ namespace GUI.UserControlGUI
     {
 
         public ControlBarViewModel Viewmodel { get; set; }
-        public event Action<Type> PageChanged;
+        public event Action<Type> PageChanged; // Sự kiện để thông báo thay đổi Page
+
         public ControlBarUC()
         {
-
             InitializeComponent();
-            this.DataContext = Viewmodel = new ControlBarViewModel();
-            if (UserSession.Instance.Role != "Admin")
+            if (UserSession.Instance.Role == "Admin")
             {
-                // Hide admin-only buttons
-                Statistics.Visibility = Visibility.Collapsed;
-                ManagerEditor.Visibility = Visibility.Collapsed;
+                ManagerCustomer.Visibility = Visibility.Visible;
+                ManagerEditor.Visibility = Visibility.Visible;
+                Statistics.Visibility = Visibility.Visible;
             }
-            if (UserSession.Instance.Role != "Editor" && UserSession.Instance.Role != "Admin")
+            else
             {
-                // Hide admin-only buttons
                 ManagerCustomer.Visibility = Visibility.Collapsed;
+                ManagerEditor.Visibility = Visibility.Collapsed;
+                Statistics.Visibility = Visibility.Collapsed;
             }
+            if (UserSession.Instance.Role == "Editor")
+            {
+                ManagerCustomer.Visibility = Visibility.Visible;
+                ManagerEditor.Visibility = Visibility.Collapsed;
+                Statistics.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                ManagerCustomer.Visibility = Visibility.Collapsed;
+                ManagerEditor.Visibility = Visibility.Collapsed;
+                Statistics.Visibility = Visibility.Collapsed;
+            }
+
         }
 
         private void Home_Click(object sender, RoutedEventArgs e)
@@ -72,10 +85,7 @@ namespace GUI.UserControlGUI
 
         }
 
-        private void MyCourse_MouseLeftButtonDown_1(object sender, MouseButtonEventArgs e)
-        {
-
-        }
+        
 
         private void ManagerEditor_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
