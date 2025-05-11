@@ -10,48 +10,11 @@ using System.Security.Cryptography;
 using System.Runtime.Remoting.Messaging;
 using System.Security.Policy;
 using System.Xml.Linq;
+using System.Security.Principal;
 namespace DAL
 {
     public class AccountAccess : DataBaseAccess
     {
-        //public string CheckLogin(Account account)
-        //{
-        //    string infor = CheckLoginData(account);
-        //    return infor;
-        //}
-        //public bool CheckEmail(string Gmail)
-        //{
-        //    if (CheckEmailData(Gmail) == true)
-        //    {
-        //        return true;
-        //    }
-        //    else
-        //    {
-        //        return false;
-        //    }
-        //}
-        //public string ChangePassword(Person person, string newpassword)
-        //{
-        //    string result = ChangeDataPassword(person,newpassword);
-        //    return result;
-        //}
-        //public string ChangeName(Person person, string newname)
-        //{
-        //    string result = ChangeDataName(person, newname);
-        //    return result;
-        //}
-        //public string ChangePhone(Person person, string newphone)
-        //{
-        //    string result = ChangeDataPhone(person, newphone);
-        //    return result;
-        //}
-        //// tuấn anh mới thêm
-        //public int Get_quantily_Account()
-        //{
-        //    int quantily = Get_quantily_Account_DATA();
-        //    return quantily;
-        //}
-        ////
         public string CheckLoginData(string username, string password)
         {
             string ID_user = null;
@@ -304,5 +267,36 @@ namespace DAL
             return "Add_Success";
 
         }
+        public Account FindAccountData(string accountID)
+        {
+            Account account = null;
+            SqlConnection sqlCon = SqlconnectionData.connnect();
+            if (sqlCon.State == ConnectionState.Closed)
+            {
+                sqlCon.Open();
+            }
+
+            SqlCommand command = new SqlCommand();
+            command.CommandType = CommandType.StoredProcedure;
+            command.CommandText = "FindAccount";
+            command.Connection = sqlCon;
+            command.Parameters.AddWithValue("@AccountID", accountID); // Giả sử tham số truyền vào là @AccountID
+
+            SqlDataReader reader = command.ExecuteReader();
+            if (reader.Read())
+            {
+                account = new Account();
+                account.ID = reader["AccountID"].ToString();
+                account.Username = reader["Username"].ToString();
+                account.Password = reader["Password"].ToString();
+                account.Role = reader["Role"].ToString();
+                account.Status = Convert.ToInt32(reader["Status"]);
+                // Thêm các thuộc tính khác nếu có
+            }
+            reader.Close();
+            sqlCon.Close();
+            return account;
+        }
+
     }
 }

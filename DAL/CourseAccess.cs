@@ -232,5 +232,10 @@ namespace DAL
             sqlCon.Close();
             return courseCategories;
         }
+        public List<CourseCategory> ShowBuyCourse()
+        {
+            return ShowAllDataCourse();
+        }
+
     }
 }
