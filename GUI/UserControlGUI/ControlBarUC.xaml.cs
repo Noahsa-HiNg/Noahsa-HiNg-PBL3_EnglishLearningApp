@@ -94,4 +94,4 @@ namespace GUI.UserControlGUI
 
         }
     }
-    }
+}

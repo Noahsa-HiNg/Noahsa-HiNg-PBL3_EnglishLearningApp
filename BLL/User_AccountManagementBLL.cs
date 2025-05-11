@@ -17,6 +17,31 @@ namespace BLL
     // lớp kiểm tra chức năng đăng nhập,đăng ký & quên mật khẩu
     public class User_AccountManagementBLL : UserDataValidatorBLL
     {
+        private AccountAccess _accountAccess;
+        private CustomerAccess _customerAccess;
+        private CourseAccess _courseAccess;
+        private LessonAccess _lessonAccess;
+
+        public User_AccountManagementBLL()
+        {
+            _accountAccess = new AccountAccess();
+            _customerAccess = new CustomerAccess();
+            _courseAccess = new CourseAccess();
+            _lessonAccess = new LessonAccess();
+        }
+
+        // Constructor with injected dependencies for testing/flexibility
+        public User_AccountManagementBLL(
+            AccountAccess accountAccess,
+            CustomerAccess customerAccess,
+            CourseAccess courseAccess,
+            LessonAccess lessonAccess)
+        {
+            _accountAccess = accountAccess;
+            _customerAccess = customerAccess;
+            _courseAccess = courseAccess;
+            _lessonAccess = lessonAccess;
+        }
         AccountAccess acAccess = new AccountAccess();
         public string CheckLogin(string username, string password)
         {
@@ -170,6 +195,11 @@ namespace BLL
         {
             Account account = acAccess.FindAccountData(accountID);
             return account;
+        }
+        public object GetUserByAccountID(string accountID)
+        {
+            object user = acAccess.GetUserByAccountIDData(accountID);
+            return user;
         }
     }
 }  

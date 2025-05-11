@@ -24,7 +24,7 @@ namespace GUI
         public CourseDetailPage(CourseCategory course)
         {
             InitializeComponent();
-            DataContext = course; // Gán dữ liệu của Course vào DataContext
+            this.DataContext = course; // Gán dữ liệu của Course vào DataContext
         }
     }
 }
