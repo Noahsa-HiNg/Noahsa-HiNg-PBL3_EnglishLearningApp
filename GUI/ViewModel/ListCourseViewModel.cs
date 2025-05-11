@@ -13,11 +13,19 @@ namespace GUI.ViewModel
     class ListCourseViewModel
     {
         public ObservableCollection<CourseCategory> Courses { get; set; }
+        public ICommand NavigateToDetailCommand { get; }
         public ListCourseViewModel()
         {
             CourseManagementBLL courseManagementBLL = new CourseManagementBLL();
             CourseCategory[] courseCategories = courseManagementBLL.ShowAllCourse();
             Courses = new ObservableCollection<CourseCategory>(courseCategories);
+            NavigateToDetailCommand = new RelayCommand<CourseCategory>(NavigateToDetail);
+        }
+        private void NavigateToDetail(CourseCategory course)
+        {
+            // Điều hướng đến CourseDetailPage
+            var mainWindow = System.Windows.Application.Current.MainWindow as MainWindow;
+            mainWindow?.MainFrame.Navigate(new CourseDetailPage(course));
         }
     }
 }

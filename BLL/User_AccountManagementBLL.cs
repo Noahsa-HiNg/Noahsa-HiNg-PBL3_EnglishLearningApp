@@ -17,6 +17,73 @@ namespace BLL
     // lớp kiểm tra chức năng đăng nhập,đăng ký & quên mật khẩu
     public class User_AccountManagementBLL : UserDataValidatorBLL
     {
+        private AccountAccess _accountAccess;
+        private CustomerAccess _customerAccess;
+        private CourseAccess _courseAccess;
+        private LessonAccess _lessonAccess;
+
+        public User_AccountManagementBLL()
+        {
+            _accountAccess = new AccountAccess();
+            _customerAccess = new CustomerAccess();
+            _courseAccess = new CourseAccess();
+            _lessonAccess = new LessonAccess();
+        }
+
+        // Constructor with injected dependencies for testing/flexibility
+        public User_AccountManagementBLL(
+            AccountAccess accountAccess,
+            CustomerAccess customerAccess,
+            CourseAccess courseAccess,
+            LessonAccess lessonAccess)
+        {
+            _accountAccess = accountAccess;
+            _customerAccess = customerAccess;
+            _courseAccess = courseAccess;
+            _lessonAccess = lessonAccess;
+        }
+
+        public UserProfileData GetUserProfileData(string username)
+        {
+            UserProfileData profileData = new UserProfileData();
+
+            try
+            {
+                // 1. Get Account Info
+                Account account = _accountAccess.ShowDataInforAccountByUsername(username);
+                profileData.Account = account;
+
+                if (account != null && !string.IsNullOrEmpty(account.ID))
+                {
+                    // 2. Get Customer Info (assuming Account_ID is used as Customer_ID in proc_show_customer)
+                    // If proc_show_customer actually needs Customer_ID, you'll need to
+                    // get Customer_ID first or modify your SP.
+                    // Based on your CustomerAccess.ShowDataInforCus(string customerId),
+                    // it expects Customer_ID, but inside it maps to customer.Account_ID.
+                    // So, for now, I'll pass the Account.ID assuming it's used for lookup.
+                    (Customer customer, Account linkedAccount) = _customerAccess.ShowDataInforCus(account.ID); // Passing Account.ID as Customer_ID
+                    profileData.Customer = customer;
+
+                    // 3. Get User-Specific Course Data
+                    // These methods are SUGGESTED and need implementation in DAL/CourseAccess.cs
+                    profileData.RegisteredCourses = _courseAccess.GetRegisteredCoursesByAccountId(account.ID);
+                    profileData.FavoriteCourses = _courseAccess.GetFavoriteCoursesByAccountId(account.ID);
+
+                    // 4. Get User-Specific Lesson Data
+                    // These methods are SUGGESTED and need implementation in DAL/LessonAccess.cs
+                    profileData.LessonHistory = _lessonAccess.GetLessonHistoryByAccountId(account.ID);
+                    profileData.FavoriteLessons = _lessonAccess.GetFavoriteLessonsByAccountId(account.ID);
+                }
+            }
+            catch (Exception ex)
+            {
+                // Log the exception
+                Console.WriteLine($"Error in GetUserProfileData: {ex.Message}");
+                // Optionally rethrow or return null/empty data
+            }
+
+            return profileData;
+        }
         AccountAccess acAccess = new AccountAccess();
         public string CheckLogin(string username, string password)
         {

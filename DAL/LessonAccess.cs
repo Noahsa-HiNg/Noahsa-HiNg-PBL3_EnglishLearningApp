@@ -340,5 +340,82 @@ namespace DAL
             command.ExecuteNonQuery();
             sqlCon.Close();
         }
+
+
+        // PHƯƠNG THỨC CẦN TRIỂN KHAI CHO LỊCH SỬ BÀI HỌC
+        public List<DTO.Lesson> GetLessonHistoryByAccountId(string accountId)
+        {
+            List<DTO.Lesson> lessonHistory = new List<DTO.Lesson>();
+            SqlConnection sqlCon = SqlconnectionData.connnect();
+            try
+            {
+                if (sqlCon.State == ConnectionState.Closed) sqlCon.Open();
+                // Ví dụ về Stored Procedure: proc_get_user_lesson_history
+                // CREATE PROCEDURE proc_get_user_lesson_history @AccountId NVARCHAR(50) AS SELECT L.Lesson_ID, L.Title, L.Description FROM Lessons L JOIN UserLessonHistory ULH ON L.Lesson_ID = ULH.Lesson_ID WHERE ULH.Account_ID = @AccountId;
+                SqlCommand command = new SqlCommand("proc_get_user_lesson_history", sqlCon);
+                command.CommandType = CommandType.StoredProcedure;
+                command.Parameters.AddWithValue("@AccountId", accountId);
+
+                SqlDataReader reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    lessonHistory.Add(new DTO.Lesson
+                    {
+                        Lesson_ID = reader["Lesson_ID"].ToString(),
+                        Title = reader["Title"].ToString(),
+                        Description = reader["Description"].ToString()
+                        // Ánh xạ các thuộc tính khác của Lesson từ DataReader
+                    });
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error getting lesson history: " + ex.Message);
+                // Ghi log lỗi chi tiết hơn ở đây
+            }
+            finally
+            {
+                if (sqlCon.State == ConnectionState.Open) sqlCon.Close();
+            }
+            return lessonHistory;
+        }
+
+        // PHƯƠNG THỨC CẦN TRIỂN KHAI CHO BÀI HỌC YÊU THÍCH
+        public List<DTO.Lesson> GetFavoriteLessonsByAccountId(string accountId)
+        {
+            List<DTO.Lesson> favoriteLessons = new List<DTO.Lesson>();
+            SqlConnection sqlCon = SqlconnectionData.connnect();
+            try
+            {
+                if (sqlCon.State == ConnectionState.Closed) sqlCon.Open();
+                // Ví dụ về Stored Procedure: proc_get_user_favorite_lessons
+                // CREATE PROCEDURE proc_get_user_favorite_lessons @AccountId NVARCHAR(50) AS SELECT L.Lesson_ID, L.Title, L.Description FROM Lessons L JOIN UserFavoriteLessons UFL ON L.Lesson_ID = UFL.Lesson_ID WHERE UFL.Account_ID = @AccountId;
+                SqlCommand command = new SqlCommand("proc_get_user_favorite_lessons", sqlCon);
+                command.CommandType = CommandType.StoredProcedure;
+                command.Parameters.AddWithValue("@AccountId", accountId);
+
+                SqlDataReader reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    favoriteLessons.Add(new DTO.Lesson
+                    {
+                        Lesson_ID = reader["Lesson_ID"].ToString(),
+                        Title = reader["Title"].ToString(),
+                        Description = reader["Description"].ToString()
+                        // Ánh xạ các thuộc tính khác của Lesson từ DataReader
+                    });
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error getting favorite lessons: " + ex.Message);
+                // Ghi log lỗi chi tiết hơn ở đây
+            }
+            finally
+            {
+                if (sqlCon.State == ConnectionState.Open) sqlCon.Close();
+            }
+            return favoriteLessons;
+        }
     }
 }

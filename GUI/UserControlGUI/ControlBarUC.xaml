@@ -20,7 +20,7 @@
                     <TextBlock Grid.Column="2" Text="Manager Customer" x:Name="ManagerCustomer" Margin="10,0,10,0" VerticalAlignment="Center" 
                         MouseLeftButtonDown="ManagerCustomer_MouseLeftButtonDown" Cursor="Hand"/>
                     <TextBlock Grid.Column="2" Text="My Course" x:Name="MyCourse" Margin="10,0,10,0" VerticalAlignment="Center" 
-                        MouseLeftButtonDown="MyCourse_MouseLeftButtonDown" Cursor="Hand"/>
+                        MouseLeftButtonDown="MyCourse_MouseLeftButtonDown"  Cursor="Hand"/>
                     
                     
                     <Button Grid.Column="4" x:Name="Shoping_card" Margin="2,0,10,0" Background="Transparent" BorderThickness="0"
