@@ -36,8 +36,8 @@ namespace DAL
                 while (reader.Read())
                 {
                     ID_user =reader.GetInt32(0).ToString();
-                    Lock = reader.GetBoolean(5);
-                    if (Lock) return "LockedAccount";
+                    //Lock = reader.GetBoolean(5);
+                    //if (Lock) return "LockedAccount";
                 }
                 reader.Close();
                 sqlCon.Close();
@@ -286,11 +286,10 @@ namespace DAL
             if (reader.Read())
             {
                 account = new Account();
-                account.ID = reader["AccountID"].ToString();
+                account.ID = reader["Account_ID"].ToString();
                 account.Username = reader["Username"].ToString();
                 account.Password = reader["Password"].ToString();
                 account.Role = reader["Role"].ToString();
-                account.Status = Convert.ToInt32(reader["Status"]);
                 // Thêm các thuộc tính khác nếu có
             }
             reader.Close();

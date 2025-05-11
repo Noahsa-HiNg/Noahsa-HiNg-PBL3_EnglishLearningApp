@@ -21,62 +21,77 @@ namespace GUI.UserControlGUI
     /// </summary>
     public partial class ControlBarUC : UserControl
     {
+
         public ControlBarViewModel Viewmodel { get; set; }
+        public event Action<Type> PageChanged; // Sự kiện để thông báo thay đổi Page
+
         public ControlBarUC()
         {
             InitializeComponent();
-            this.DataContext = Viewmodel = new ControlBarViewModel();
+            if (UserSession.Instance.Role == "Admin")
+            {
+                ManagerCustomer.Visibility = Visibility.Visible;
+                ManagerEditor.Visibility = Visibility.Visible;
+                Statistics.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                ManagerCustomer.Visibility = Visibility.Collapsed;
+                ManagerEditor.Visibility = Visibility.Collapsed;
+                Statistics.Visibility = Visibility.Collapsed;
+            }
+            if (UserSession.Instance.Role == "Editor")
+            {
+                ManagerEditor.Visibility = Visibility.Visible;
+                MyCourse.Visibility = Visibility.Collapsed;
+            } 
         }
-        private void NavigateToPage(Page page)
-        {
-            // Tìm Frame trong MainWindow và điều hướng đến Page
-            var mainWindow = Application.Current.MainWindow as MainWindow;
-            mainWindow?.MainFrame.Navigate(page);
-        }
+
         private void Home_Click(object sender, RoutedEventArgs e)
         {
-            NavigateToPage(new ListCourse());
+            PageChanged?.Invoke(typeof(ListCourse)); // Gửi thông báo để hiển thị ListCourse
         }
+
         private void Shoping_card_Click(object sender, RoutedEventArgs e)
         {
-            NavigateToPage(new ShoppingCartPage());
+            PageChanged?.Invoke(typeof(ShoppingCartPage)); // Gửi thông báo để hiển thị ShoppingCartPage
         }
+
         private void MyCourse_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            NavigateToPage(new MyCoursePage());
+            PageChanged?.Invoke(typeof(MyCoursePage)); // Gửi thông báo để hiển thị MyCoursePage
         }
+
         private void Bell_icon_Click(object sender, RoutedEventArgs e)
         {
-            NavigateToPage(new NotificationPage());
+            PageChanged?.Invoke(typeof(NotificationPage)); // Gửi thông báo để hiển thị NotificationPage
         }
 
         private void UserProfile_Click(object sender, RoutedEventArgs e)
         {
-            // Wrap UserProfilePage in a Frame-compatible Page
-            NavigateToPage(new PageWrapper(new UserProfilePage()));
+            PageChanged?.Invoke(typeof(UserProfilePage)); // Gửi thông báo để hiển thị UserProfilePage
         }
 
         private void ManagerCustomer_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            NavigateToPage(new ManagerCustomerPage());
+
         }
+
+        
 
         private void ManagerEditor_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            NavigateToPage(new ManagerEditorPage());
+
         }
 
         private void Statistics_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            NavigateToPage(new StatisticsPage());
+
         }
-    }
-    public class PageWrapper : Page
-    {
-        public PageWrapper(System.Windows.Window window)
+
+        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-            this.Content = window.Content;
-            window.Content = null;
+
         }
     }
 }

@@ -12,19 +12,19 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using GUI.ViewModel;
+using DTO;
 
 namespace GUI
 {
     /// <summary>
-    /// Interaction logic for MyCoursePage.xaml
+    /// Interaction logic for CourseDetailPage.xaml
     /// </summary>
-    public partial class MyCoursePage : Page
+    public partial class CourseDetailPage : Page
     {
-        public MyCoursePage()
+        public CourseDetailPage(CourseCategory course)
         {
             InitializeComponent();
-            this.DataContext = new MyListCourseViewModel();
+            DataContext = course; // Gán dữ liệu của Course vào DataContext
         }
     }
 }

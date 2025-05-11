@@ -52,5 +52,17 @@ namespace BLL
 
             return filtered;
         }
+        public List<CourseCategory> ShowBuyCourse(Account account)
+        {
+            List<CourseCategory> courseCategories = new List<CourseCategory>();
+            courseCategories = courseAccess.ShowBuyCourseData(account);
+            return courseCategories;
+        }
+        public List<CourseCategory> ShowUnBoughtCourse(Account account)
+        {
+            List<CourseCategory> courseCategories = new List<CourseCategory>();
+            courseCategories = courseAccess.ShowUnBoughtCoursesData(account);
+            return courseCategories;
+        }
     }
 }
