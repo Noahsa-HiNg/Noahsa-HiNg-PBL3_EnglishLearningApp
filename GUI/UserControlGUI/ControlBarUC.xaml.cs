@@ -21,11 +21,24 @@ namespace GUI.UserControlGUI
     /// </summary>
     public partial class ControlBarUC : UserControl
     {
+
         public ControlBarViewModel Viewmodel { get; set; }
         public ControlBarUC()
         {
+
             InitializeComponent();
             this.DataContext = Viewmodel = new ControlBarViewModel();
+            if (UserSession.Instance.Role != "Admin")
+            {
+                // Hide admin-only buttons
+                Statistics.Visibility = Visibility.Collapsed;
+                ManagerEditor.Visibility = Visibility.Collapsed;
+            }
+            if (UserSession.Instance.Role != "Editor" && UserSession.Instance.Role != "Admin")
+            {
+                // Hide admin-only buttons
+                ManagerCustomer.Visibility = Visibility.Collapsed;            
+            }
         }
         private void NavigateToPage(Page page)
         {
