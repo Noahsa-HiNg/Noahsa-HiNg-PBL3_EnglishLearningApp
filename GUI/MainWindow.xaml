@@ -28,7 +28,7 @@
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
             <Grid Grid.Row="0">
-                <uc:ControlBarUC></uc:ControlBarUC>
+                <uc:ControlBarUC x:Name="ControlBar" DockPanel.Dock="Top" />
             </Grid>
         </Grid>
         <Grid Grid.Row="1" Margin="0 100 0 100">
