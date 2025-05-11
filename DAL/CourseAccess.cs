@@ -156,6 +156,7 @@ namespace DAL
                     CourseCategory courseCategory = new CourseCategory();
                     courseCategory.Category_ID = reader["Category_ID"].ToString();
                     courseCategory.Name = reader["Name"].ToString();
+                    courseCategory.Description = reader["Description"].ToString();
                     courseCategory.Price = Convert.ToDecimal(reader["Price"]); // Explicit conversion added here  
                     courseCategories.Add(courseCategory);
                 }
