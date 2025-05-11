@@ -9,6 +9,7 @@ using System.Net.Mail;
 using System.Security.Cryptography;
 using DTO;
 using DAL;
+using System.Security.AccessControl;
 
 namespace BLL
 {
@@ -196,10 +197,13 @@ namespace BLL
             Account account = acAccess.FindAccountData(accountID);
             return account;
         }
-        public object GetUserByAccountID(string accountID)
+        public (object, string) GetUserByAccountID(string accountID)
         {
-            object user = acAccess.GetUserByAccountIDData(accountID);
-            return user;
+            object user = null;
+            string role = null;
+            (user, role) = acAccess.GetUserByAccountIDData(accountID);
+            return (user, role);
         }
+        
     }
 }  

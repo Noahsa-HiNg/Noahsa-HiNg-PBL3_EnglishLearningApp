@@ -296,10 +296,10 @@ namespace DAL
             sqlCon.Close();
             return account;
         }
-        public object GetUserByAccountIDData(string accountID)
+        public (object,string) GetUserByAccountIDData(string accountID)
         {
             object user = null;
-
+            string role = null;
             // Kết nối cơ sở dữ liệu
             SqlConnection sqlCon = SqlconnectionData.connnect();
             if (sqlCon.State == ConnectionState.Closed)
@@ -316,12 +316,13 @@ namespace DAL
             // Nếu tìm thấy tài khoản
             if (reader.Read())
             {
-                string role = reader.GetString(reader.GetOrdinal("role"));
+                role = reader.GetString(reader.GetOrdinal("role"));
 
                 // Dựa vào Role, tạo đối tượng phù hợp
                 if (role == "Customer")
                 {
                     user = GetCustomerByAccountID(accountID);
+
                 }
                 else if (role == "Editor")
                 {
@@ -337,7 +338,7 @@ namespace DAL
             reader.Close();
             sqlCon.Close();
 
-            return user;
+            return (user,role);
         }
 
         // Hàm lấy thông tin Customer
