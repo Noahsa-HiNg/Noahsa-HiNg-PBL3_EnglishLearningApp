@@ -8,7 +8,7 @@ using DAL;
 using DTO;
 namespace BLL
 {
-    class CourseManagementBLL
+    public class CourseManagementBLL
     {
         CourseAccess courseAccess = new CourseAccess();
         LessonManagementBLL lessonManagementBLL = new LessonManagementBLL();

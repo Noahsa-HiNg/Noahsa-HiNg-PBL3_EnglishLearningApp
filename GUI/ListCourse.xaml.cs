@@ -15,21 +15,18 @@ using System.Windows.Shapes;
 using DTO;
 using BLL;
 using System.Collections.ObjectModel;
+using GUI.ViewModel;
 namespace GUI
 {
     /// <summary>
     /// Interaction logic for ListCourse.xaml
     /// </summary>
     public partial class ListCourse : Page
-    {
-        public ObservableCollection<CourseCategory> Courses { get; set; }
-        
+    {      
         public ListCourse()
-        {
-            
-           
+        {         
             InitializeComponent();
-            
+            this.DataContext = new ListCourseViewModel();              
         }
     }
 }

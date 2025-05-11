@@ -8,13 +8,15 @@ using System.Net.Http;
 using DTO;
 using System.Data;
 using System.Reflection;
+using System.Configuration;
 namespace DAL
 {
     public class SqlconnectionData
     {
         public static SqlConnection connnect()
         {
-            string strCon = @" Data Source = LAPTOP-J1FD85UQ\SQLEXPRESS; Initial Catalog = PBL3_02; Integrated Security = True;";
+            string strCon = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
+            ;
             SqlConnection sqlcon = null;
             if (sqlcon == null)
             {

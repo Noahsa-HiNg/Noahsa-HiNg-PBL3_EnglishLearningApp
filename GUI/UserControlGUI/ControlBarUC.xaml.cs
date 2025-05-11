@@ -27,7 +27,8 @@ namespace GUI.UserControlGUI
             InitializeComponent();
             this.DataContext = Viewmodel = new ControlBarViewModel();
         }
-
+        void GetWindowParent() { 
+        }
         private void Bell_icon_Click(object sender, RoutedEventArgs e)
         {
 
@@ -35,9 +36,9 @@ namespace GUI.UserControlGUI
 
         private void UserProfile_Click(object sender, RoutedEventArgs e)
         {
-
+            
         }
-
+        
         private void Shoping_card_Click(object sender, RoutedEventArgs e)
         {
 
