@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using DTO;
 using GUI.ViewModel;
 
 namespace GUI
@@ -25,6 +26,15 @@ namespace GUI
         {
             InitializeComponent();
             this.DataContext = new MyListCourseViewModel();
+        }
+        private void NavigateToCourseDetail_Click(object sender, System.Windows.RoutedEventArgs e)
+        {
+            // Điều hướng đến trang CourseDetailPage
+            if (sender is Button button && button.Tag is CourseCategory course)
+            {
+                // Điều hướng đến CourseDetailPage và truyền dữ liệu
+                this.NavigationService?.Navigate(new CourseDetailPage(course));
+            }
         }
     }
 }

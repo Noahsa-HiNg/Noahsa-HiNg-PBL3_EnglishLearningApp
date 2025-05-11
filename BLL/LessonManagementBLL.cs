@@ -8,7 +8,7 @@ using DAL;
 using System.Runtime.Remoting.Messaging;
 namespace BLL
 {
-    class LessonManagementBLL:LessonValidator
+    public class LessonManagementBLL:LessonValidator
     {
         LessonAccess lessonAccess = new LessonAccess();
         public string AddLesson(Lesson lesson)

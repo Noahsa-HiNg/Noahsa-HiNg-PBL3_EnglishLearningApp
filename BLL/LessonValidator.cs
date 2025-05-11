@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BLL
 {
-    class LessonValidator
+    public class LessonValidator
     {
         public string CheckTitle(string title)
         {
