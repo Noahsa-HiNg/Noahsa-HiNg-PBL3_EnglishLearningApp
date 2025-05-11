@@ -12,22 +12,17 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using DTO;
-using BLL;
-using System.Collections.ObjectModel;
-using GUI.ViewModel;
+
 namespace GUI
 {
     /// <summary>
-    /// Interaction logic for ListCourse.xaml
+    /// Interaction logic for ManagerEditorPage.xaml
     /// </summary>
-    public partial class ListCourse : Page
-    {      
-        public ListCourse()
-        {         
+    public partial class ManagerEditorPage : Page
+    {
+        public ManagerEditorPage()
+        {
             InitializeComponent();
-            this.DataContext = new ListCourseViewModel();              
         }
-        
     }
 }

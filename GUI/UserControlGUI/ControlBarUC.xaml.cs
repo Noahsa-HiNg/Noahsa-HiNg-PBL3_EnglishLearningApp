@@ -54,5 +54,20 @@ namespace GUI.UserControlGUI
         {
             NavigateToPage(new UserProfilePage());
         }
+
+        private void ManagerCustomer_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            NavigateToPage(new ManagerCustomerPage());
+        }
+
+        private void ManagerEditor_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            NavigateToPage(new ManagerEditorPage());
+        }
+
+        private void Statistics_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            NavigateToPage(new StatisticsPage());
+        }
     }
 }

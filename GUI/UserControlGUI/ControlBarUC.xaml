@@ -13,8 +13,16 @@
                     <DockPanel Background="Transparent">
 
                 <StackPanel DockPanel.Dock="Right" Background="Transparent" Orientation="Horizontal">
+                    <TextBlock Grid.Column="2" Text="Statistics" x:Name="Statistics" Margin="10,0,10,0" VerticalAlignment="Center" 
+                        MouseLeftButtonDown="Statistics_MouseLeftButtonDown" Cursor="Hand"/>
+                    <TextBlock Grid.Column="2" Text="Manager Editor" x:Name="ManagerEditor" Margin="10,0,10,0" VerticalAlignment="Center" 
+                        MouseLeftButtonDown="ManagerEditor_MouseLeftButtonDown" Cursor="Hand"/>
+                    <TextBlock Grid.Column="2" Text="Manager Customer" x:Name="ManagerCustomer" Margin="10,0,10,0" VerticalAlignment="Center" 
+                        MouseLeftButtonDown="ManagerCustomer_MouseLeftButtonDown" Cursor="Hand"/>
                     <TextBlock Grid.Column="2" Text="My Course" x:Name="MyCourse" Margin="10,0,10,0" VerticalAlignment="Center" 
                         MouseLeftButtonDown="MyCourse_MouseLeftButtonDown" Cursor="Hand"/>
+                    
+                    
                     <Button Grid.Column="4" x:Name="Shoping_card" Margin="2,0,10,0" Background="Transparent" BorderThickness="0"
                         Click="Shoping_card_Click">
                         <materialDesign:PackIcon Kind="CartOutline" Width="20" Height="25"/>
@@ -32,6 +40,7 @@
                         Click="Home_Click">
                     <materialDesign:PackIcon Kind="Home" Width="20" Height="25"/>
                     </Button>
+
                 </StackPanel>
     <StackPanel
       materialDesign:RippleAssist.IsCentered="True"

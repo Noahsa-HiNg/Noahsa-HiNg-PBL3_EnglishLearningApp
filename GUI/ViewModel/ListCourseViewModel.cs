@@ -19,5 +19,6 @@ namespace GUI.ViewModel
             CourseCategory[] courseCategories = courseManagementBLL.ShowAllCourse();
             Courses = new ObservableCollection<CourseCategory>(courseCategories);
         }
+
     }
 }
