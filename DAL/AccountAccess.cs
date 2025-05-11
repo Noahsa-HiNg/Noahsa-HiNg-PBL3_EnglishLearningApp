@@ -267,7 +267,7 @@ namespace DAL
             return "Add_Success";
 
         }
-        public Account FindAccount(string accountID)
+        public Account FindAccountData(string accountID)
         {
             Account account = null;
             SqlConnection sqlCon = SqlconnectionData.connnect();

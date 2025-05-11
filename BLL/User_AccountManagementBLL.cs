@@ -166,5 +166,10 @@ namespace BLL
             }
             return result;
         }
+        public Account FindAccount(string accountID)
+        {
+            Account account = acAccess.FindAccountData(accountID);
+            return account;
+        }
     }
 }  
