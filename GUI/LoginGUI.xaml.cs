@@ -212,7 +212,17 @@ namespace GUI
                 txtMessage.Visibility = Visibility.Visible;
                 return;
             }
-
+            User_AccountManagementBLL user_AccountManagementBLL = new User_AccountManagementBLL();
+            var user = user_AccountManagementBLL.FindAccount(item);
+            if(user != null)
+            {
+                UserSession.Instance.ID = user.ID;
+                UserSession.Instance.Username = user.Username;
+                UserSession.Instance.Password = user.Password;
+                UserSession.Instance.Avatar = user.Avatar;
+                UserSession.Instance.Role = user.Role;
+                UserSession.Instance.Status = user.Status;
+            }
             txtMessage.Text = "Đăng nhập thành công!";
             txtMessage.Visibility = Visibility.Visible;
             txtMessage.Foreground = Brushes.Green;
@@ -232,6 +242,27 @@ namespace GUI
             }
 
             // Lưu các thay đổi vào tệp cấu hình
+
+            Properties.Settings.Default.Save();
+            MainWindow mainWindow = new MainWindow();
+            mainWindow.Show();
+            mainWindow.MainFrame.Navigate(new ListCourse());
+
+            // Đóng cửa sổ LoginGUI
+            this.Close();
+        }
+        public void Logout()
+        {
+            // Xóa thông tin đăng nhập
+            UserSession.Instance.ID = null;
+            UserSession.Instance.Username = null;
+            UserSession.Instance.Password = null;
+            UserSession.Instance.Avatar = null;
+            UserSession.Instance.Role = null;
+            UserSession.Instance.Status = 0;
+            // Xóa thông tin ghi nhớ
+            Properties.Settings.Default.RememberMe = false;
+            Properties.Settings.Default.LastUsername = "";
             Properties.Settings.Default.Save();
         }
     }
