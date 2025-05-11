@@ -27,36 +27,34 @@ namespace GUI.UserControlGUI
             InitializeComponent();
             this.DataContext = Viewmodel = new ControlBarViewModel();
         }
-        void GetWindowParent() { 
+        private void NavigateToPage(Page page)
+        {
+            // Tìm Frame trong MainWindow và điều hướng đến Page
+            var mainWindow = Application.Current.MainWindow as MainWindow;
+            mainWindow?.MainFrame.Navigate(page);
+        }
+        private void Home_Click(object sender, RoutedEventArgs e)
+        {
+            NavigateToPage(new ListCourse());
+        }
+        private void Shoping_card_Click(object sender, RoutedEventArgs e)
+        {
+            NavigateToPage(new ShoppingCartPage());
+        }
+        private void MyCourse_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            NavigateToPage(new MyCoursePage());
         }
         private void Bell_icon_Click(object sender, RoutedEventArgs e)
         {
-
+            NavigateToPage(new NotificationPage());
         }
 
         private void UserProfile_Click(object sender, RoutedEventArgs e)
         {
-            
-        }
-        
-        private void Shoping_card_Click(object sender, RoutedEventArgs e)
-        {
-
+            NavigateToPage(new UserProfilePage());
         }
 
-        private void Mylesson_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-
-        }
-
-        private void MyCourse_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-
-        }
-
-        private void Home_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
+       
     }
 }
