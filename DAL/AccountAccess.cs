@@ -10,6 +10,7 @@ using System.Security.Cryptography;
 using System.Runtime.Remoting.Messaging;
 using System.Security.Policy;
 using System.Xml.Linq;
+using System.Security.Principal;
 namespace DAL
 {
     public class AccountAccess : DataBaseAccess
@@ -268,16 +269,36 @@ namespace DAL
         }
         public Account FindAccount(string accountID)
         {
+            Account account = null;
             SqlConnection sqlCon = SqlconnectionData.connnect();
             if (sqlCon.State == ConnectionState.Closed)
             {
                 sqlCon.Open();
             }
+
             SqlCommand command = new SqlCommand();
             command.CommandType = CommandType.StoredProcedure;
             command.CommandText = "FindAccount";
             command.Connection = sqlCon;
-            
+            command.Parameters.AddWithValue("@AccountID", accountID); // Giả sử tham số truyền vào là @AccountID
+
+            SqlDataReader reader = command.ExecuteReader();
+            if (reader.Read())
+            {
+                account = new Account();
+                account.ID = reader["AccountID"].ToString();
+                account.Username = reader["Username"].ToString();
+                account.Password = reader["Password"].ToString();
+                account.Role = reader["Role"].ToString();
+                account.Status = Convert.ToBoolean(reader["Status"]);
+                // Thêm các thuộc tính khác nếu có
+            }
+
+            reader.Close();
+            sqlCon.Close();
+            return account;
         }
+
     }
+}
 }
