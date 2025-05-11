@@ -84,11 +84,11 @@ namespace DAL
                 course.Name = Convert.ToString(reader["Name"]);
                 course.Description = Convert.ToString(reader["Description"]);
                 course.Price = Convert.ToDecimal(reader["Price"]);
-                course.Created_By = Convert.ToInt32(reader["Created_By"]);
+                course.Created_By = Convert.ToString(reader["Created_By"]);
                 course.Created_By_Role = Convert.ToString(reader["Created_By_Role"]);
                 course.Created_Date = Convert.ToDateTime(reader["Created_Date"]);
 
-                course.Update_By = reader["Updated_By"] != DBNull.Value ? Convert.ToInt32(reader["Updated_By"]) : 0;
+                course.Update_By = reader["Updated_By"] != DBNull.Value ? Convert.ToString(reader["Updated_By"]) : "0";
                 course.Update_By_Role = Convert.ToString(reader["Updated_By_Role"]);
                 course.Updated_Date = reader["Updated_Date"] != DBNull.Value ? Convert.ToDateTime(reader["Updated_Date"]) : DateTime.MinValue;
 
@@ -139,26 +139,28 @@ namespace DAL
             command.Connection = sqlCon;
             command.CommandType = CommandType.StoredProcedure;
             command.CommandText = "ShowAllCourse";
-            //            CREATE PROCEDURE ShowAllCourse
-            //AS
-            //BEGIN
-            //    SELECT
-            //        Category_ID, 
-            //        Name
-            //    FROM
-            //        Course_Category
-            //    WHERE
-            //        Is_Deleted = 0
-            //END
+//            CREATE PROCEDURE ShowAllCourse
+//AS
+//            BEGIN
+//                SELECT
+//                    Category_ID, 
+//                    Name
+//                FROM
+//                    Course_Category
+//                WHERE
+//                    Is_Deleted = 0
+//            END
             SqlDataReader reader = command.ExecuteReader();
-
-            while (reader.Read())
-            {
-                CourseCategory courseCategory = new CourseCategory();
-                courseCategory.Category_ID = reader["Category_ID"].ToString();
-                courseCategory.Name = reader["Name"].ToString();
-                courseCategories.Add(courseCategory);
-            }
+                while (reader.Read())
+                {
+                    CourseCategory courseCategory = new CourseCategory();
+                    courseCategory.Category_ID = reader["Category_ID"].ToString();
+                    courseCategory.Name = reader["Name"].ToString();
+                    courseCategory.Price = Convert.ToDecimal(reader["Price"]); // Explicit conversion added here  
+                    courseCategories.Add(courseCategory);
+                }
+                
+        
             reader.Close();
             sqlCon.Close();
             return courseCategories;
