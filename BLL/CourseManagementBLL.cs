@@ -38,5 +38,19 @@ namespace BLL
             courseAccess.RestoreDataCourse(courseCategory);
             lessonManagementBLL.RestoreLesOfCourse(courseCategory.Category_ID);
         }
+        public List<CourseCategory> SearchCourse(string searchTerm, List<CourseCategory> courseCategories)
+        {
+            if (string.IsNullOrWhiteSpace(searchTerm))
+                return courseCategories;
+
+            searchTerm = searchTerm.ToLower();
+
+            var filtered = courseCategories
+                .Where(c => !string.IsNullOrEmpty(c.Name) && c.Name.ToLower().Contains(searchTerm)
+                         || !string.IsNullOrEmpty(c.Description) && c.Description.ToLower().Contains(searchTerm))
+                .ToList();
+
+            return filtered;
+        }
     }
 }
