@@ -42,17 +42,9 @@ namespace GUI.UserControlGUI
             }
             if (UserSession.Instance.Role == "Editor")
             {
-                ManagerCustomer.Visibility = Visibility.Visible;
-                ManagerEditor.Visibility = Visibility.Collapsed;
-                Statistics.Visibility = Visibility.Collapsed;
-            }
-            else
-            {
-                ManagerCustomer.Visibility = Visibility.Collapsed;
-                ManagerEditor.Visibility = Visibility.Collapsed;
-                Statistics.Visibility = Visibility.Collapsed;
-            }
-
+                ManagerEditor.Visibility = Visibility.Visible;
+                MyCourse.Visibility = Visibility.Collapsed;
+            } 
         }
 
         private void Home_Click(object sender, RoutedEventArgs e)
