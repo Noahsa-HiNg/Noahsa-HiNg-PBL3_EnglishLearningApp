@@ -48,6 +48,7 @@
     <Compile Include="DataBaseAccess.cs" />
     <Compile Include="EditorAccess.cs" />
     <Compile Include="LessonAccess.cs" />
+    <Compile Include="NotificationAccess.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

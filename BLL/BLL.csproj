@@ -55,6 +55,7 @@
     <Compile Include="LessonValidator.cs" />
     <Compile Include="MomoPayment.cs" />
     <Compile Include="MomoSecurity.cs" />
+    <Compile Include="NotificationManagementBLL.cs" />
     <Compile Include="OtpHelper.cs" />
     <Compile Include="PaymentRequestcs.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
