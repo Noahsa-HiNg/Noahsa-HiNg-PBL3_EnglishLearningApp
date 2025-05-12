@@ -19,6 +19,8 @@
                         MouseLeftButtonDown="ManagerEditor_MouseLeftButtonDown" Cursor="Hand"/>
                     <TextBlock Grid.Column="2" Text="Manager Customer" x:Name="ManagerCustomer" Margin="10,0,10,0" VerticalAlignment="Center" 
                         MouseLeftButtonDown="ManagerCustomer_MouseLeftButtonDown" Cursor="Hand"/>
+                    <TextBlock Grid.Column="2" Text="Manager Course" x:Name="ManagerCourse" Margin="10,0,10,0" VerticalAlignment="Center" 
+                        MouseLeftButtonDown="ManagerCourse_MouseLeftButtonDown" Cursor="Hand"/>
                     <TextBlock Grid.Column="2" Text="My Course" x:Name="MyCourse" Margin="10,0,10,0" VerticalAlignment="Center" 
                         MouseLeftButtonDown="MyCourse_MouseLeftButtonDown"  Cursor="Hand"/>
                     

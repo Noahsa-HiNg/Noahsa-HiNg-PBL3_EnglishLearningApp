@@ -21,9 +21,25 @@ namespace GUI
     /// </summary>
     public partial class LessonDetailPage : Page
     {
-        public LessonDetailPage(Lesson lessons)
+        public LessonDetailPage(Lesson lesson)
         {
             InitializeComponent();
+            DataContext = lesson; // Gán dữ liệu của Lesson vào DataContext
+        }
+
+        private void PlayButton_Click(object sender, System.Windows.RoutedEventArgs e)
+        {
+            VideoPlayer.Play();
+        }
+
+        private void PauseButton_Click(object sender, System.Windows.RoutedEventArgs e)
+        {
+            VideoPlayer.Pause();
+        }
+
+        private void StopButton_Click(object sender, System.Windows.RoutedEventArgs e)
+        {
+            VideoPlayer.Stop();
         }
     }
 }

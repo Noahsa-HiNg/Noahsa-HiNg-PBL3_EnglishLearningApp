@@ -1,0 +1,45 @@
+﻿<Page x:Class="GUI.ManagerCoursePage"
+     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+     xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+     xmlns:local="clr-namespace:GUI"
+     mc:Ignorable="d" 
+     d:DesignHeight="450" d:DesignWidth="800"
+     Title="ManagerCoursePage">
+
+   <Page.Resources>
+       <!-- DataTemplate cho thẻ khóa học -->
+       <DataTemplate x:Key="CourseCardTemplate">
+           <Border BorderBrush="Gray" BorderThickness="1" CornerRadius="5" Padding="10" Margin="10 10 10 10" Background="White" Height="auto" Width="480">
+               <StackPanel>
+                   <Image Source="{Binding Image}" Width="100" Height="100" Margin="0,0,0,5"/>
+                   <TextBlock Text="{Binding Name}" FontWeight="Bold" FontSize="16" Margin="0,0,0,5"/>
+                   <TextBlock Text="{Binding Description}" TextWrapping="Wrap" FontSize="14" Margin="0,0,0,5"/>
+                   <TextBlock Text="{Binding Create_By}" TextWrapping="Wrap" FontSize="14" Margin="0,0,0,5"/>
+                   <TextBlock Text="{Binding Price}" TextWrapping="Wrap" FontSize="14" Margin="0,0,0,5"/>
+                   <Button Height="auto" Background="#D6CFF5" Width="auto" Content="Detail"
+    Click="NavigateToLessonDetail_Click" Tag="{Binding}"/>
+               </StackPanel>
+           </Border>
+       </DataTemplate>
+   </Page.Resources>
+
+   <Grid>
+       <!-- Tên khóa học -->
+       <TextBlock Text="Manager Course" FontSize="24" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,10,0,0"/>
+
+       <!-- Nút thêm bài học -->
+       <Button Content="Add Course" x:Name="Add_Course" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,0,20,0" Padding="10,5" Background="#D6CFF5" Height="60" Click="Add_Course_Click"/>
+
+       <ScrollViewer VerticalScrollBarVisibility="Auto" Margin="0,60,0,0">
+           <ItemsControl ItemsSource="{Binding Courses}" ItemTemplate="{StaticResource CourseCardTemplate}">
+               <ItemsControl.ItemsPanel>
+                   <ItemsPanelTemplate>
+                       <WrapPanel Orientation="Horizontal" />
+                   </ItemsPanelTemplate>
+               </ItemsControl.ItemsPanel>
+           </ItemsControl>
+       </ScrollViewer>
+   </Grid>
+</Page>

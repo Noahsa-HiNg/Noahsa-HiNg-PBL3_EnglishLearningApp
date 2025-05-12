@@ -6,20 +6,18 @@ using System.Text;
 using System.Threading.Tasks;
 using BLL;
 using DTO;
+using System.Windows.Input;
 
 namespace GUI.ViewModel
 {
-    internal class ShoppingCartCourseViewModel
+    class ManagerListCourseViewModel
     {
         public ObservableCollection<CourseCategory> Courses { get; set; }
-        public ShoppingCartCourseViewModel()
+        public ManagerListCourseViewModel()
         {
             CourseManagementBLL courseManagementBLL = new CourseManagementBLL();
-            Account account = new Account();
-            User_AccountManagementBLL user_AccountManagementBLL = new User_AccountManagementBLL();
-            account = user_AccountManagementBLL.FindAccount(UserSession.Instance.ID);
-            List<CourseCategory> courseCategories = courseManagementBLL.ShowUnBoughtCourse(account);
+            CourseCategory[] courseCategories = courseManagementBLL.ShowAllCourse();
             Courses = new ObservableCollection<CourseCategory>(courseCategories);
         }
-    }   
+    }
 }

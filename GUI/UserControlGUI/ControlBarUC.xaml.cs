@@ -33,17 +33,21 @@ namespace GUI.UserControlGUI
                 ManagerCustomer.Visibility = Visibility.Visible;
                 ManagerEditor.Visibility = Visibility.Visible;
                 Statistics.Visibility = Visibility.Visible;
+                MyCourse.Visibility = Visibility.Collapsed;
+                ManagerCourse.Visibility = Visibility.Visible;
             }
             else
             {
                 ManagerCustomer.Visibility = Visibility.Collapsed;
                 ManagerEditor.Visibility = Visibility.Collapsed;
                 Statistics.Visibility = Visibility.Collapsed;
+                ManagerCourse.Visibility = Visibility.Collapsed;
             }
             if (UserSession.Instance.Role == "Editor")
             {
                 ManagerEditor.Visibility = Visibility.Visible;
                 MyCourse.Visibility = Visibility.Collapsed;
+                ManagerCourse.Visibility = Visibility.Visible;
             } 
         }
 
@@ -74,24 +78,29 @@ namespace GUI.UserControlGUI
 
         private void ManagerCustomer_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-
+            PageChanged?.Invoke(typeof(ManagerCustomerPage));
         }
 
         
 
         private void ManagerEditor_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-
+            PageChanged?.Invoke(typeof(ManagerEditorPage));
         }
 
         private void Statistics_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-
+            PageChanged?.Invoke(typeof(StatisticsPage));
         }
 
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
 
+        }
+
+        private void ManagerCourse_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            PageChanged?.Invoke(typeof(ManagerCoursePage));
         }
     }
 }
